@@ -1,26 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
 import './App.css';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import SongSearch from './components/SongSearch';
 
-function App() {
+function App(props) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div>
+        <Route exact path="/" render={() => <SongSearch {...props} />} />
+      </div>
+    </Router>
   );
 }
 
-export default App;
+export default connect(state => state)(App);
