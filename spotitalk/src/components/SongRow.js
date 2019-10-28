@@ -8,7 +8,7 @@ export default function SongRow(props) {
         <tr>
             <td>
                 <Link to={{
-                    pathname: "SongView",
+                    pathname: "SongSoloView",
                     state: song,
                 }}
                 >

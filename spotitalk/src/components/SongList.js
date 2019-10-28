@@ -2,7 +2,7 @@ import React from 'react'
 import SongRow from './SongRow';
 
 export default function SongList(props) {
-    const songList = []; // will be fetched from the api
+    const songList = [{ id: "123", title: "Infallible", artist: "Pearl Jam", album: "Lightning Bolt" }]; // will be fetched from the api
     return (
         <table class="table table-striped">
             <thead>
@@ -29,7 +29,7 @@ export default function SongList(props) {
                     songList.map(song =>
                         <SongRow
                             key={song.id}
-                            {...song}
+                            {...{ song }}
                         />
                     )
                 }
