@@ -4,7 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import SongSearch from './components/SongSearch';
 import SongSoloView from './components/SongSoloView';
-import SongSearchDispatcher from './songSearchDispatcher';
+import SongSearchDispatcher from './dispatchers/songSearchDispatcher';
 
 function App(props) {
   return (
