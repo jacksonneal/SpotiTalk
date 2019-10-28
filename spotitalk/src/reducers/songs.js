@@ -1,5 +1,5 @@
 const initialState = {
-    songList: [], //Would fill from service
+    songNameSearch: '',
 };
 
 //Are there any actions?
