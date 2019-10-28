@@ -8,5 +8,13 @@ export default function SongSearchDispatcher(dispatch) {
                 }
             })
         },
+        searchSongArtist: (artist) => {
+            dispatch({
+                type: 'SEARCH_SONG_ARTIST',
+                payload: {
+                    searchArtist: artist,
+                }
+            })
+        }
     }
 }
