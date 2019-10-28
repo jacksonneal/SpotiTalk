@@ -1,16 +1,15 @@
 const initialState = {
-    songNameSearch: '',
+    songSearchTitle: '',
 };
 
-//Are there any actions?
 const actions = {
-    'DELETE_SONG': deleteSong,
+    'SEARCH_SONG_TITLE': searchSongTitle,
 }
 
 //Just an example, probably won't delete songs
-function deleteSong(state, action) {
+function searchSongTitle(state, action) {
     return {
-        songList: state.songList.filter(song => song.id !== action.payload.id)
+        songSearchTitle: action.payload.searchTitle
     }
 }
 

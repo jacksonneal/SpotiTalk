@@ -1,7 +1,7 @@
 import React from 'react'
 import SongRow from './SongRow';
 
-export default function SongList(props) {
+export default function SongList() {
     const songList = [{ id: "123", title: "Infallible", artist: "Pearl Jam", album: "Lightning Bolt" }]; // will be fetched from the api
     return (
         <table class="table table-striped">

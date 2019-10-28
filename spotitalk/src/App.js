@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import SongSearch from './components/SongSearch';
 import SongSoloView from './components/SongSoloView';
+import SongSearchDispatcher from './songSearchDispatcher';
 
 function App(props) {
   return (
@@ -16,4 +17,4 @@ function App(props) {
   );
 }
 
-export default connect(state => state.songs)(App);
+export default connect(state => state.songs, SongSearchDispatcher)(App);
