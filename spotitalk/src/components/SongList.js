@@ -2,7 +2,7 @@ import React from 'react'
 import SongRow from './SongRow';
 
 export default function SongList(props) {
-    const songList = [];
+    const songList = []; // will be fetched from the api
     return (
         <table class="table table-striped">
             <thead>
