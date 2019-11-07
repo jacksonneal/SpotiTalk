@@ -15,6 +15,14 @@ export default function SongSearchDispatcher(dispatch) {
                     searchArtist: artist,
                 }
             })
+        },
+        saveAuthToken: (token) => {
+            dispatch({
+                type: 'SAVE_AUTH_TOKEN',
+                payload: {
+                    authToken: token,
+                }
+            })
         }
     }
 }
