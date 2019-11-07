@@ -50,7 +50,6 @@
 // }
 
 async function searchSongs(queryString, token) {
-  console.log(token);
   const uri = `https://api.spotify.com/v1/search?q=${queryString}&type=track`;
   const res = await fetch(uri, {
     headers: {
