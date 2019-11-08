@@ -1,34 +1,21 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import SongRow from './SongRow';
-import ApiService from "../services/ApiService";
 
 export default function SongList(props) {
-  const { authToken } = props;
-  const [songList, setSongList] = useState([{
-    id: "123",
-    title: "Infallible",
-    artist: "Pearl Jam",
-    album: "Lightning Bolt"
-  }]); // will be fetched from the api
+  const { songList } = props;
 
-  useEffect(() => {
-    async function fetchData() {
-      let trackResult = await ApiService.searchSongs('Monster Mash', authToken);
-      let mappedResult = trackResult.tracks.items.map(
-        track => {
-          return {
-            id: track.id,
-            title: track.name,
-            artist: track.artists[0].name,
-            album: track.album.name,
-            artwork: track.album.images && track.album.images[0].url,
-          }
-        });
-      setSongList(mappedResult);
-    }
+  function mappedTracks() {
+    return songList.map(track => {
+      return {
+        id: track.id,
+        title: track.name,
+        artist: track.artists[0].name,
+        album: track.album.name,
+        artwork: track.album.images && track.album.images[0].url,
+      }
+    });
+  }
 
-    fetchData();
-  }, [authToken])
   return (
     <table className="table table-striped">
       <thead>
@@ -52,7 +39,7 @@ export default function SongList(props) {
       </thead>
       <tbody>
         {
-          songList.map(song =>
+          mappedTracks().map(song =>
             <SongRow
               key={song.id}
               {...{ song }}
