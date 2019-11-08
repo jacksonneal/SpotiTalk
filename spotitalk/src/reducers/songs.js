@@ -1,6 +1,6 @@
 const initialState = {
-    songSearchTitle: 'Monster Mash',
-    songsearchArtist: '',
+    songSearchTitle: 'Infallible',
+    songSearchArtist: 'Pearl Jam',
     authToken: '',
 };
 

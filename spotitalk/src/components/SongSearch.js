@@ -16,7 +16,6 @@ export default function SongSearch(props) {
 
     return (
         <div>
-            <div>Here is the song list/search page</div>
             <SongSearchBar {...{ songSearchArtist, songSearchTitle, search }} />
             <SongList {...{ songList }} />
         </div>

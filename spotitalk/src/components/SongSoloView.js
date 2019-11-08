@@ -5,8 +5,8 @@ export default function SongSoloView(props) {
 
   return (
     <>
-      <div id={id}>This is the song solo
-          view {`${title} by ${artist} off the album ${album}`}
+      <div id={id}>
+        {`${title} by ${artist} off the album ${album}`}
       </div>
       <img alt='album' src={artwork} />
     </>
