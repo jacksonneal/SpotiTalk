@@ -6,7 +6,7 @@ export default function SongSearch(props) {
     const [artist, setArtist] = useState('');
 
     function noQuery() {
-        return !title && !artist;
+        return !title || !artist;
     }
 
     return (

@@ -10,7 +10,7 @@ export default function SongSearch(props) {
     async function search(title, artist) {
         searchSongTitle(title);
         searchSongArtist(artist);
-        const songs = await service.searchSongs(title, authToken);
+        const songs = await service.searchSongs(title, artist, authToken);
         setSongList(songs.tracks.items);
     }
 

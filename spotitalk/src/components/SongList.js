@@ -1,5 +1,5 @@
 import React from 'react'
-import SongRow from './SongRow';
+import SongRow from './SongRow'
 
 export default function SongList(props) {
   const { songList } = props;
