@@ -8,17 +8,25 @@ Moderators are users with additional administrative power within some topics. Th
 
 We intend to solve this by making heavy use of the Spotify API. Spotify provides data for all its songs, artists, and albums, and provides HTML widgets to embed these within a site. In addition, we will set up data structures that allow all these Spotify entities to have an entire forum post structure related to them.
 
-## Installation / Dev Setup
+## Installation / Dev Setup (server)
 
-Node version: `10.16.3`
-npm version: `6.9.0`
+Ensure you are using the following versions for node and npm:
+Node: `10.16.3`
+npm: `6.9.0`
 
 Installing packages
 ```bash
 npm install
 ```
 
-Running node server
+Running node server. The server will serve API calls, as well as built files in client/build
 ```bash
 npm start
 ```
+
+## Installation / Dev Setup (client)
+
+See client/README.md
+
+When developing the client, make sure the Express server is running if you plan to make API calls.
+
