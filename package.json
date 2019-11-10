@@ -1,0 +1,24 @@
+{
+  "name": "SpotiTalk",
+  "version": "1.0.0",
+  "description": "SpotiTalk is a community to talk about your favorite songs, artists, and albums, all while being able to easily listen to the music being discussed. Before this, there was no forum that effectively covered all musical niches, and there were several steps involved from talking about the music and actually enjoying it.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jacksonneal/SpotiTalk.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jacksonneal/SpotiTalk/issues"
+  },
+  "homepage": "https://github.com/jacksonneal/SpotiTalk#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}

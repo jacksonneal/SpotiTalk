@@ -7,3 +7,18 @@ Users can look up a specific song, artist, or album, and view a full forum about
 Moderators are users with additional administrative power within some topics. They can ban users and delete posts within their domain. Moderators help keep SpotiTalk civil and on-topic.
 
 We intend to solve this by making heavy use of the Spotify API. Spotify provides data for all its songs, artists, and albums, and provides HTML widgets to embed these within a site. In addition, we will set up data structures that allow all these Spotify entities to have an entire forum post structure related to them.
+
+## Installation / Dev Setup
+
+Node version: `10.16.3`
+npm version: `6.9.0`
+
+Installing packages
+```bash
+npm install
+```
+
+Running node server
+```bash
+npm start
+```
