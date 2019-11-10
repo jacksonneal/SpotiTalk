@@ -26,6 +26,7 @@ class SongView extends React.Component {
           <img src={song.album.image} />
           <p>Album: {song.album.name}</p>
           <PlayButton id={song.id} />
+          <a href='/' className='text-secondary'>Return to home</a>
         </div>
       )
   }
