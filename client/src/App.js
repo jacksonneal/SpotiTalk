@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import SongView from './components/songs/SongView.js';
 
 class App extends React.Component {
   render() {
@@ -9,7 +10,7 @@ class App extends React.Component {
       <div className='App'>
         <Router>
           <div>
-            // <Route exact path="/songs/:id" component={SongView} />
+            <Route exact path="/songs/:id" component={SongView} />
           </div>
         </Router>
       </div>
