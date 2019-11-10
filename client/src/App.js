@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from "./logo.svg";
 import { connect } from 'react-redux';
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
@@ -26,7 +25,6 @@ class App extends React.Component {
     return (
       <div className="App">
         <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
           {!this.props.authToken && (
             <a
               className="btn btn--loginApp-link"
