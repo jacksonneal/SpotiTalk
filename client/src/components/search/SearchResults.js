@@ -25,10 +25,10 @@ class SearchResults extends React.Component {
         <div>
           {
             results.map(song => (
-              <span class="spotitalk--song-search-container" key={song.id}>
-                <a class="text-white" href={`/songs/${song.id}`}>
-                  <img src={song.image} style={{width: '300px'}}/>
-                  <div class="spotitalk--song-search-text">
+              <span className="spotitalk--song-search-container" key={song.id}>
+                <a className="text-white" href={`/songs/${song.id}`}>
+                  <img src={song.image} style={{width: '300px'}} alt={`Album cover for ${song.name}`}/>
+                  <div className="spotitalk--song-search-text">
                     <h5>{song.name}</h5>
                     <p>by {song.artist}</p>
                   </div>

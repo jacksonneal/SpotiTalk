@@ -23,7 +23,7 @@ class SongView extends React.Component {
         <div>
           <h1>{song.name}</h1>
           <p>By { song.artists.map(artist => artist.name).join(", ") }</p>
-          <img src={song.album.image} />
+          <img src={song.album.image} alt={`Album cover for ${song.name}`} />
           <p>Album: {song.album.name}</p>
           <PlayButton id={song.id} />
           <a href='/' className='text-secondary'>Return to home</a>

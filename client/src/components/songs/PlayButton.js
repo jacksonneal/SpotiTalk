@@ -4,9 +4,10 @@ const PlayButton = ({id}) => (
   <div>
     <iframe
       src={`https://open.spotify.com/embed/track/${id}`}
+      title='Spotify player'
       width="300"
       height="80"
-      frameborder="0"
+      frameBorder="0"
       allowtransparency="true"
       allow="encrypted-media">
     </iframe>
