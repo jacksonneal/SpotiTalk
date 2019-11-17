@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
-const songsApi = require('./api/songs.js')
+const detailsApi = require('./api/details.js');
+const searchApi = require('./api/search.js');
 
 const app = express();
 
@@ -9,14 +10,28 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 
 // returns a song
 app.get('/api/songs/:id', (req, res) => {
-  songsApi.getSong(req.params.id).then(song => {
+  detailsApi.getSong(req.params.id).then(song => {
     res.json(song);
+  });
+})
+
+// returns an artist
+app.get('/api/artists/:id', (req, res) => {
+  detailsApi.getArtist(req.params.id).then(artist => {
+    res.json(artist);
+  });
+})
+
+// returns an album
+app.get('/api/albums/:id', (req, res) => {
+  detailsApi.getAlbum(req.params.id).then(album => {
+    res.json(album);
   });
 })
 
 // returns search results for a song
 app.get('/api/search/:query', (req, res) => {
-  songsApi.searchSongs(req.params.query).then(results => {
+  searchApi.search(req.params.query).then(results => {
     res.json(results);
   });
 })

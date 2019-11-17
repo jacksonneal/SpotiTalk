@@ -37,42 +37,12 @@ function makeApiRequest(uri) {
   });
 }
 
-function getSong(id) {
-  const uri = `https://api.spotify.com/v1/tracks/${id}`;
-  return makeApiRequest(uri).then(song => {
-    return {
-      id: song.id,
-      name: song.name,
-      artists: song.artists.map(artist => {
-        return {
-          id: artist.id,
-          name: artist.name
-        }
-      }),
-      album: {
-        id: song.album.id,
-        name: song.album.name,
-        image: song.album.images[1].url
-      }
-    };
-  });
-};
-
-function searchSongs(query) {
-  const uri = `https://api.spotify.com/v1/search?q=${query}&type=track`;
-  return makeApiRequest(uri).then(results => results.tracks.items.map(song => {
-    const artist = song.artists.length === 1 ? song.artists[0].name : `${song.artists[0].name} and others`;
-    return {
-      id: song.id,
-      name: song.name,
-      artist: artist,
-      image: song.album.images[1].url
-    }
-  }));
+function extractImage(images) {
+  return images[1] === undefined ? undefined : images[1].url
 }
 
 module.exports = {
-    getSong: getSong,
-    searchSongs: searchSongs
+  makeApiRequest: makeApiRequest,
+  extractImage: extractImage
 }
 
