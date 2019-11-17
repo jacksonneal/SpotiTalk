@@ -5,13 +5,13 @@
   margin: 20px;
 }
 
-.spotitalk--song-search-container {
+.spotitalk--search-container {
   position: relative;
   text-align: center;
   color: white;
 }
 
-.spotitalk--song-search-text {
+.spotitalk--search-text {
   background-color: black;
   position: absolute;
   top: 50%;
@@ -22,7 +22,7 @@
   border-color: white;
 }
 
-.spotitalk--song-search-text * {
+.spotitalk--search-text * {
   padding: 5px;
   margin-bottom: 0px;
 }

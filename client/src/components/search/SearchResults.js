@@ -1,4 +1,7 @@
 import React from 'react';
+import SongResult from './SongResult.js';
+import ArtistResult from './ArtistResult.js';
+import AlbumResult from './AlbumResult.js';
 
 class SearchResults extends React.Component {
   state = {
@@ -23,20 +26,13 @@ class SearchResults extends React.Component {
       (<p>Search for a song!</p>) :
       (
         <div>
-          {
-            results.songs.map(song => (
-              <span className="spotitalk--song-search-container" key={song.id}>
-                <a className="text-white" href={`/songs/${song.id}`}>
-                  <img src={song.image} style={{width: '300px'}} alt={`Album cover for ${song.name}`}/>
-                  <div className="spotitalk--song-search-text">
-                    <h5>{song.name}</h5>
-                    <p>by {song.artist}</p>
-                  </div>
-                </a>
-              </span>
-            ))
-          }
-          <p className="text-secondary">Only displaying first 20 results</p>
+          <h1 className='my-4'>Songs</h1>
+          { results.songs.map(song => <SongResult song={song} key={song.id} />) }
+          <h1 className='my-4'>Artists</h1>
+          { results.artists.map(artist => <ArtistResult artist={artist} key={artist.id} />) }
+          <h1 className='my-4'>Albums</h1>
+          { results.albums.map(album => <AlbumResult album={album} key={album.id} />) }
+          <p className="text-secondary">Only displaying most relevant results</p>
         </div>
       )
   }
