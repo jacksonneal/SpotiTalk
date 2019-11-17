@@ -1,6 +1,6 @@
 import React from 'react';
 
-const PlayButton = ({id}) => (
+const SongWidget = ({id}) => (
   <div>
     <iframe
       src={`https://open.spotify.com/embed/track/${id}`}
@@ -14,4 +14,4 @@ const PlayButton = ({id}) => (
   </div>
 );
 
-export default PlayButton;
+export default SongWidget;

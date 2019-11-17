@@ -1,5 +1,5 @@
 import React from 'react';
-import PlayButton from './PlayButton.js';
+import SongWidget from './SongWidget.js';
 
 class SongView extends React.Component {
   state = {
@@ -22,10 +22,18 @@ class SongView extends React.Component {
       (
         <div>
           <h1>{song.name}</h1>
-          <p>By { song.artists.map(artist => artist.name).join(", ") }</p>
-          <img src={song.album.image} alt={`Album cover for ${song.name}`} />
-          <p>Album: {song.album.name}</p>
-          <PlayButton id={song.id} />
+
+          <p>By</p>
+          {song.artists.map(artist =>
+            <p><a className='spotitalk--link' href={`/artists/${artist.id}`}>{artist.name}</a></p>
+          )}
+
+          <img src={song.album.image} style={{height: '300px', width: '300px'}} alt={song.name} />
+          <p>Album: <a className='spotitalk--link' href={`/albums/${song.album.id}`}>{song.album.name}</a></p>
+          <SongWidget id={song.id} />
+          <p className='mt-3'>
+            <a className='spotitalk--link' href={`/search/${song.name}`}>Search for this song</a>
+          </p>
           <a href='/' className='text-secondary'>Return to home</a>
         </div>
       )

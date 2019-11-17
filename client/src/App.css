@@ -5,6 +5,15 @@
   margin: 20px;
 }
 
+.spotitalk--link {
+  color: white;
+  text-decoration: underline;
+}
+
+.spotitalk--link:hover {
+  color: white;
+}
+
 .spotitalk--search-container {
   position: relative;
   text-align: center;
