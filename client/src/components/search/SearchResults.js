@@ -26,13 +26,34 @@ class SearchResults extends React.Component {
       (<p>Search for a song!</p>) :
       (
         <div>
-          <h1 className='my-4'>Songs</h1>
-          { results.songs.map(song => <SongResult song={song} key={song.id} />) }
-          <h1 className='my-4'>Artists</h1>
-          { results.artists.map(artist => <ArtistResult artist={artist} key={artist.id} />) }
-          <h1 className='my-4'>Albums</h1>
-          { results.albums.map(album => <AlbumResult album={album} key={album.id} />) }
-          <p className="text-secondary">Only displaying most relevant results</p>
+          {results.songs.length === 0 ? (
+            <p className='font-italic my-4'>No song results found</p>
+          ) : (
+            <div>
+              <h1 className='my-4'>Songs</h1>
+              { results.songs.map(song => <SongResult song={song} key={song.id} />) }
+            </div>
+          )}
+
+          {results.artists.length === 0 ? (
+            <p className='font-italic my-4'>No artist results found</p>
+          ) : (
+            <div>
+              <h1 className='my-4'>Artists</h1>
+              { results.artists.map(artist => <ArtistResult artist={artist} key={artist.id} />) }
+            </div>
+          )}
+          
+          {results.albums.length === 0 ? (
+            <p className='font-italic my-4'>No album results found</p>
+          ) : (
+            <div>
+              <h1 className='my-4'>Albums</h1>
+              { results.albums.map(album => <AlbumResult album={album} key={album.id} />) }
+            </div>
+          )}
+
+          <p className="text-secondary my-4">Only displaying the most relevant results</p>
         </div>
       )
   }
