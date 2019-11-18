@@ -1,5 +1,5 @@
-function search(query) {
-    return {
+function forumSearch(query) {
+    const obj = [{
         id: 1,
         content: "This is an example post",
         comments: [
@@ -8,7 +8,8 @@ function search(query) {
                 content: "Wow greate post."
             }
         ]
-    };
+    }];
+    return new Promise(resolve => resolve(obj));
 };
 
 function createPost(post) {
@@ -35,4 +36,6 @@ function updateComment(comment) {
 
 }
 
-export default { search, createPost, deletePost, updatePost, createComment, deleteComment, updateComment }
+module.exports = {
+    forumSearch
+}

@@ -39,7 +39,7 @@ app.get('/api/search/:query', (req, res) => {
 
 // returns search results for a forum
 app.get('/api/forum/:query', (req, res) => {
-  forumApi.search(req.params.query).then(results => {
+  forumApi.forumSearch(req.params.query).then(results => {
     res.json(results);
   })
 });
