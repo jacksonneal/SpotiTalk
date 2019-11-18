@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 class SearchBar extends React.Component {
   state = {
@@ -6,7 +7,11 @@ class SearchBar extends React.Component {
   }
 
   handleChange = event => {
-    this.setState({value: event.target.value});
+    this.setState({ value: event.target.value });
+  }
+
+  getQueryURL() {
+    return this.props.inForum ? `/forum/${this.state.value}` : `/search/${this.state.value}`;
   }
 
   render() {
@@ -14,9 +19,11 @@ class SearchBar extends React.Component {
       <div className="input-group mb-3">
         <input type="text" className="form-control" placeholder='Search for a song, artist, or album' value={this.state.value} onChange={this.handleChange} />
         <div className="input-group-append">
-          <a className="btn btn-light" type="button" href={`/search/${this.state.value}`}>Search</a>
+          <Link to={this.getQueryURL()}>
+            <a class="btn btn-light">Search</a>
+          </Link>
         </div>
-      </div>
+      </div >
     )
   }
 }

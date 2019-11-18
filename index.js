@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const detailsApi = require('./api/details.js');
 const searchApi = require('./api/search.js');
+const forumApi = require('./api/forum.js');
 
 const app = express();
 
@@ -36,9 +37,16 @@ app.get('/api/search/:query', (req, res) => {
   });
 })
 
+// returns search results for a forum
+app.get('/api/forum/:query', (req, res) => {
+  forumApi.search(req.params.query).then(results => {
+    res.json(results);
+  })
+});
+
 // handles any requests that don't match the ones above
-app.get('*', (req,res) => {
-  res.sendFile(path.join(__dirname+'/client/build/index.html'));
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
 
 const port = process.env.PORT || 5000;
