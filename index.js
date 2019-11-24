@@ -125,7 +125,7 @@ app.get('/api/replies', (req, res) => {
 
 //Get all users
 app.get('/api/users', (req, res) => {
-  connectionPool.query('select username, user_id from users;',
+  connectionPool.query('select username, user_id from user;',
       (error, result) => {
         if (error) {
           console.log(error);
@@ -136,7 +136,7 @@ app.get('/api/users', (req, res) => {
 });
 //Get user by id
 app.get('/api/users/:userID', (req, res) => {
-  connectionPool.query('select username,user_id from users where user_id = ?',
+  connectionPool.query('select username,user_id from user where user_id = ?',
       [req.params.userID],
       (error, result) => {
         if (error) {
