@@ -1,12 +1,12 @@
 import { api } from '../config';
 
 async function getPosts() {
-    const res = await fetch(`${api}/comments`);
+    const res = await fetch(`${api}/posts`);
     return await res.json();
 }
 
 async function createPost(post) {
-    const res = await fetch(`${api}/comments`, {
+    const res = await fetch(`${api}/posts`, {
         method: 'post',
         body: JSON.stringify(post),
         headers: {
@@ -17,7 +17,7 @@ async function createPost(post) {
 }
 
 async function deletePost(id) {
-    await fetch(`${api}/comments/${id}`, {
+    await fetch(`${api}/posts/${id}`, {
         method: 'delete',
         headers: {
             'content-type': 'application/json'

@@ -6,7 +6,7 @@ export default function ForumPostList(props) {
 
     return (
         <>
-            {posts.map(post => <ForumPost key={post.id} {...{ post, deletePost }}></ForumPost>)}
+            {posts.map(post => <ForumPost key={post.post_id} {...{ post, deletePost }}></ForumPost>)}
         </>
     )
 }

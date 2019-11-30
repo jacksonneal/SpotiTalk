@@ -8,22 +8,22 @@ export default function ForumPost(props) {
             <div className="col-12">
                 <div className="panel-heading post-header">
                     <span className="pull-left">
-                        #{post.id}
+                        #{post.post_id}
                     </span>
                     <span className="pull-left">
                         {post.title}
                     </span>
-                    <time class="pull-right">
+                    <time className="pull-right">
                         <span className="calendar">
-                            <i class="fa fa-calendar"></i>
-                            {post.time}
+                            <i className="fa fa-calendar"></i>
+                            {post.ts}
                         </span>
                         <span className="clock">
-                            <i class="fa fa-clock-o"></i>
+                            <i className="fa fa-clock-o"></i>
                         </span>
                         {post.time}
                     </time>
-                    <button className="btn btn-default" onClick={() => deletePost(post.id)}>
+                    <button className="btn btn-default" onClick={() => deletePost(post.post_id)}>
                         Delete
               </button>
                 </div>
@@ -32,33 +32,33 @@ export default function ForumPost(props) {
                 <div className="post-body">
                     <div className="row">
                         <div className="col-8">
-                            <div class="row">
-                                <h3 class="subject-line">
+                            <div className="row">
+                                <h3 className="subject-line">
                                     {post.subject}
                                 </h3>
                             </div>
                             <div>
                                 <hr className="break-line" />
                             </div>
-                            <div class="row">
-                                <p class="post-content">
+                            <div className="row">
+                                <p className="post-content">
                                     {post.content}
                                 </p>
                             </div>
                         </div>
                         <hr className="break-line" />
                         <div className="col-4">
-                            <img className="image-box" src={post.src} />
+                            <img className="image-box" src={post.img_src} />
                         </div>
                     </div>
                 </div>
             </div>
             <div className="col-12">
                 <div className="post-footer">
-                    <span class="pull-left">
+                    <span className="pull-left">
                         Like
               </span>
-                    <span class="pull-right">
+                    <span className="pull-right">
                         Reply
               </span>
                 </div>

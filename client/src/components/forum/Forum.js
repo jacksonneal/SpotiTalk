@@ -4,30 +4,31 @@ import ForumPostList from './ForumPostList';
 import ForumFooter from './ForumFooter';
 
 export default function Forum(props) {
-  const [results, setResults] = useState([]);
+  const [postList, setPostList] = useState([]);
 
   useEffect(() => {
-    fetchComments();
+    fetchPosts();
   }, []);
 
-  async function fetchComments() {
+  async function fetchPosts() {
     const comments = await service.getPosts();
-    setResults(comments);
+    setPostList(comments);
   }
 
   async function createPost(post) {
-    await service.createPost(post);
-    fetchComments();
+    const posts = await service.createPost(post);
+    setPostList(posts);
   }
 
   async function deletePost(id) {
     await service.deletePost(id);
-    fetchComments();
+    const posts = await service.getPosts();
+    setPostList(posts);
   }
 
   return (
     <div>
-      <ForumPostList posts={results} deletePost={deletePost}></ForumPostList>
+      <ForumPostList posts={postList} deletePost={deletePost}></ForumPostList>
       <ForumFooter {...{ createPost }}></ForumFooter>
     </div>)
 }
