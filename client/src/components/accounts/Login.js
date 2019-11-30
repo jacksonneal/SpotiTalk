@@ -1,55 +1,30 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
-import accountService from '../services/AccountService';
+import accountService from '../services/account';
 
 export default function Login(props) {
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [failed, setFailed] = useState(false);
     const [successLogin, setSuccessLogin] = useState(false);
-    const [userType, setUserType] = useState("user");
 
     async function executeSignIn() {
-        if (userType === "user") {
-            try {
-                const user = await accountService.login({
-                    userName,
-                    password
-                });
-                if (user) {
-                    props.cookies.remove('vendorId', { path: '/' });
-                    props.cookies.set('userId', user.userId, { path: '/' });
-                    setSuccessLogin(true);
-                } else {
-                    throw new Error("Unable to login");
-                }
-            } catch (e) {
-                console.log(e);
-                setFailed(true);
-            }
-        } else if (userType === "vendor") {
-            try {
-                const vendor = await accountService.loginVendor({
-                    vendorName: userName,
-                    password
-                });
-                if (vendor) {
-                    props.cookies.remove('userId', { path: '/' });
-                    props.cookies.set('vendorId', vendor.vendorId, { path: '/' });
-                    setSuccessLogin(true);
-                } else {
-                    throw new Error("Unable to login");
-                }
-            } catch (e) {
-                console.log(e);
-                setFailed(true);
-            }
+        try {
+            const user = await accountService.login({
+                userName,
+                password
+            });
+            // Need to save user in cookies here
+            setSuccessLogin(true);
+        } catch (e) {
+            console.log(e);
+            setFailed(true);
         }
     }
 
     if (successLogin) {
-        return <Redirect to="/home"></Redirect>
+        return <Redirect to="/"></Redirect>
     }
 
     return (
@@ -62,19 +37,8 @@ export default function Login(props) {
             }
             <form>
                 <div className="form-group row">
-                    <label htmlFor="usertype" className="col-sm-2 col-form-label">
-                        User Type </label>
-                    <div onChange={(e) => setUserType(e.target.value)} className="col-sm-10">
-                        <select id="usertype" className="form-control">
-                            <option value="user">User</option>
-                            <option value="vendor">Vendor</option>
-                        </select>
-                    </div>
-                </div>
-                <div className="form-group row">
                     <label htmlFor="username" className="col-sm-2 col-form-label">
-                        {userType === "user" && `UserName`}
-                        {userType === "vendor" && `Vendor Name`}
+                        Username
                     </label>
                     <div className="col-sm-10">
                         <input value={userName} onChange={e => setUserName(e.target.value)} className="form-control" id="username" placeholder="Alice" />
