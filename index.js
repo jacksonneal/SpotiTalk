@@ -5,6 +5,7 @@ const detailsApi = require('./api/details.js');
 const searchApi = require('./api/search.js');
 const forumApi = require('./api/forum.js');
 const mysql = require('mysql');
+const bcrypt = require('bcryptjs');
 const connectionPool = mysql.createPool({
   connectionLimit: 10,
   host: 'us-cdbr-iron-east-05.cleardb.net',
@@ -25,8 +26,50 @@ app.use(express.static(path.join(__dirname, 'client/build')));
 app.use(function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Credentials", true);
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   next();
+});
+
+//used to login a user
+app.get('/api/user', (req, res) => {
+  const { userName, password } = req.query;
+  connectionPool.query(
+    'select password from user where username = ?',
+    [userName],
+    (err, result, fields) => {
+      if (err) {
+        res.status(500).send({ error: 'Unable to query for user' });
+      }
+      bcrypt.compare(password, result[0].password, function (err, compRes) {
+        if (compRes === true) {
+          res.send(compRes);
+        } else {
+          res.status(404).send({ error: 'Unable to login: username or password incorrect' });
+        }
+      });
+    });
+});
+
+// used to register a user
+app.post('/api/user', (req, res) => {
+  const { userName, password, isModerator } = req.body;
+  bcrypt.hash(password, 10, (err, hash) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send({ error: 'Unable to hash password' });
+    }
+    connectionPool.query(
+      'insert into user (username, password, is_moderator) values (?,?,?)',
+      [userName, hash, isModerator],
+      (err, res, fields) => {
+        if (err) {
+          console.log(err);
+          res.status(500).send({ error: 'Error creating user' });
+        }
+        res.status(200).send("OK");
+      });
+  });
 });
 
 // returns a song

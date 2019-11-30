@@ -9,7 +9,7 @@ create table post
     content     text not null,
     img_src text not null,
     title text not null,
-    subtitle text not null,
+    subject text not null,
     ts timestamp default current_timestamp,
     constraint post_user_user_id_fk
         foreign key (user_id) references user (user_id)
@@ -37,6 +37,7 @@ create table user
 (
     username text null,
     password text not null,
+    isModerator tinyint not null default 0,
     user_id  int auto_increment
         primary key
 );
