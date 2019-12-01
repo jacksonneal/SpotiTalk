@@ -4,7 +4,6 @@ import Collapse from 'react-bootstrap/Collapse';
 
 export default function CommentList(props) {
     const { open, comments } = props;
-    console.log(comments);
     return (
         <Collapse in={open}>
             <div className="container-fluid mb-5">

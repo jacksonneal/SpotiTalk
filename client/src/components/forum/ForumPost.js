@@ -20,6 +20,12 @@ export default function ForumPost(props) {
         setComments(comments);
     }
 
+    function getTime(ts) {
+        var t = ts.split(/[- :TZ]/);
+        var d = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
+        return d.toString();
+    }
+
     useEffect(() => {
         fetchComments();
     }, []);
@@ -30,11 +36,11 @@ export default function ForumPost(props) {
                 <Card.Header bg="info" text="white">
                     <time className="pull-right">
                         <span className="calendar">
-                            <i className="fa fa-calendar"></i>
-                            {post.ts}
+                            <i className="fa fa-calendar mr-2"></i>
+                            {getTime(post.ts)}
                         </span>
                         <span className="clock">
-                            <i className="fa fa-clock-o"></i>
+                            <i className="fa fa-clock-o ml-2"></i>
                         </span>
                     </time>
                     <span className="pull-left mr-3">

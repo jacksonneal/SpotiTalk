@@ -114,7 +114,7 @@ app.get('/api/forum/:query', (req, res) => {
 //Get Posts joined on user_id for username.
 app.get('/api/posts', (req, res) => {
   connectionPool.query(
-    'select u.username, u.user_id,content,spotify_uri,post_id,title,subject,ts from post left join user u on post.user_id = u.user_id;',
+    'select u.username, u.user_id,content,spotify_uri,post_id,title,subject,ts from post left join user u on post.user_id = u.user_id order by ts desc;',
     (err, result, fields) => {
       if (err) {
         console.log(err);
