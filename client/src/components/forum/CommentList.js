@@ -7,7 +7,7 @@ export default function CommentList(props) {
 
     return (
         <Collapse in={open}>
-            <div className="container-fluid">
+            <div className="container-fluid mb-5">
                 {(comments.length === 0) && <div>No Comments for this Post.</div>}
                 {(comments.length > 0) && comments.map(comment => {
                     return (
