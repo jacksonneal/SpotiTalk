@@ -62,10 +62,10 @@ export default function ForumPost(props) {
                 <div className="post-footer">
                     <span className="pull-left">
                         Like
-              </span>
+                    </span>
                     <span className="pull-right">
                         Reply
-              </span>
+                    </span>
                 </div>
             </div>
         </div>
