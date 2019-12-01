@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { withCookies } from 'react-cookie';
 import SongView from './components/songs/SongView.js';
 import AlbumView from './components/albums/AlbumView.js';
 import ArtistView from './components/artists/ArtistView.js';
@@ -41,5 +42,5 @@ class App extends React.Component {
   }
 }
 
-export default App;
+export default withCookies(App);
 

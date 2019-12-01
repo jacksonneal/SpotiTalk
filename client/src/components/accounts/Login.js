@@ -4,6 +4,7 @@ import { Redirect } from 'react-router';
 import accountService from '../../services/account';
 
 export default function Login(props) {
+    const { cookies } = props;
     const [userName, setUserName] = useState('');
     const [password, setPassword] = useState('');
     const [failed, setFailed] = useState(false);
@@ -11,11 +12,11 @@ export default function Login(props) {
 
     async function executeSignIn() {
         try {
-            const user = await accountService.login({
+            const userId = await accountService.login(
                 userName,
                 password
-            });
-            // Need to save user in cookies here
+            );
+            cookies.set("userId", userId, { path: '/' });
             setSuccessLogin(true);
         } catch (e) {
             console.log(e);

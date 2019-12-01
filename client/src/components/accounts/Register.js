@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router';
 import accountService from '../../services/account';
 
-export default function Register(props) {
+export default function Register() {
     const [successRegister, setSuccessRegister] = useState(false);
     const [alert, setAlert] = useState(false);
     const [userType, setUserType] = useState("user");
@@ -16,26 +15,31 @@ export default function Register(props) {
             if (password !== confPassword) {
                 throw new Error("Passwords must match");
             }
-            const user = await accountService.registerUser({
+            await accountService.registerUser({
                 isModerator: userType === "moderator" ? true : false,
                 userName,
                 password,
                 confPassword
             });
-            // Need to save user in cookies here
+            setUserName("");
+            setUserType("user");
+            setPassword("");
+            setConfPassword("");
             setSuccessRegister(true);
+            setAlert(false);
         } catch (e) {
             console.log(e);
             setAlert(true);
         }
     }
 
-    if (successRegister) {
-        return <Redirect to="/home"></Redirect>
-    }
-
     return (
         <div className="container">
+            {successRegister &&
+                <div className="alert alert-success">
+                    Successfully registered. Please login now.
+                </div>
+            }
             {alert &&
                 <div className="alert alert-danger">
                     Failed to register.

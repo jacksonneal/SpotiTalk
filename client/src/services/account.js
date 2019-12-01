@@ -8,12 +8,20 @@ async function registerUser(user) {
             'content-type': 'application/json'
         }
     });
-    return await res.json();
+    if (res.status === 200) {
+        return "OK";
+    } else {
+        throw new Error("Unable to register");
+    }
 };
 
 async function login(userName, password) {
     const res = await fetch(`${api}/user?userName=${userName}&password=${password}`);
-    return await res.json();
+    if (res.status === 200) {
+        return await res.json();
+    } else {
+        throw new Error("Unable to login");
+    }
 }
 
 export default { registerUser, login };

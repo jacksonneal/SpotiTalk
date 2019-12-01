@@ -34,20 +34,25 @@ app.use(function (req, res, next) {
 //used to login a user
 app.get('/api/user', (req, res) => {
   const { userName, password } = req.query;
+  console.log(userName, password);
   connectionPool.query(
-    'select password from user where username = ?',
+    'select user_id, password from user where username = ?',
     [userName],
     (err, result, fields) => {
       if (err) {
         res.status(500).send({ error: 'Unable to query for user' });
       }
-      bcrypt.compare(password, result[0].password, function (err, compRes) {
-        if (compRes === true) {
-          res.send(compRes);
-        } else {
-          res.status(404).send({ error: 'Unable to login: username or password incorrect' });
-        }
-      });
+      try {
+        bcrypt.compare(password, result[0].password, function (err, compRes) {
+          if (compRes === true) {
+            res.send({ userId: result[0].user_id });
+          } else {
+            res.status(404).send({ error: 'Unable to login: username or password incorrect' });
+          }
+        });
+      } catch (e) {
+        res.status(404).send({ error: 'Unable to login: username or password incorrect' });
+      }
     });
 });
 
@@ -62,7 +67,7 @@ app.post('/api/user', (req, res) => {
     connectionPool.query(
       'insert into user (username, password, is_moderator) values (?,?,?)',
       [userName, hash, isModerator],
-      (err, res, fields) => {
+      (err, queryRes, fields) => {
         if (err) {
           console.log(err);
           res.status(500).send({ error: 'Error creating user' });
