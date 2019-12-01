@@ -30,7 +30,7 @@ class App extends React.Component {
               <Route exact path={["/forum", "/forum/:criteria"]}
                 render={(props) => <SearchContainer {...this.props} {...props} inForum={true} />} />
               <Route exact path="/songs/:id" render={(props) => <SongView {...props} {...this.props} />} />
-              <Route exact path="/albums/:id" component={AlbumView} />
+              <Route exact path="/albums/:id" render={(props) => <AlbumView {...props} {...this.props} />} />
               <Route exact path="/artists/:id" render={(props) => <ArtistView {...props} {...this.props} />} />
               <Route exact path="/login" render={() => <Login {...this.props}></Login>} />
               <Route exact path="/register" render={() => <Register {...this.props}></Register>} />

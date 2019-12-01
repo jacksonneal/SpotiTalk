@@ -66,7 +66,7 @@ export default function ForumPost(props) {
                                 <hr className="break-line" />
                             </div>
                             <div className="row">
-                                <Card.Text>
+                                <Card.Text className="m-3">
                                     {post.content}
                                 </Card.Text>
                             </div>

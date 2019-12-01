@@ -46,6 +46,7 @@ function getAlbum(id) {
           name: artist.name
         }
       }),
+      uri: album.uri,
       image: extractImage(album.images)
     };
   });

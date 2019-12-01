@@ -29,7 +29,6 @@ class ArtistView extends React.Component {
     fetch(`/api/artists/${id}`)
       .then(response => response.json())
       .then(artist => {
-        console.log(artist);
         this.setState(() => ({ artist, userId }))
       });
   }
