@@ -31,7 +31,7 @@ export default function Forum(props) {
 
   return (
     <div>
-      <ForumPostList isModerator={isModerator} posts={postList} deletePost={deletePost}></ForumPostList>
+      <ForumPostList userId={userId} isModerator={isModerator} posts={postList} deletePost={deletePost}></ForumPostList>
       <ForumFooter {...{ createPost, userId }}></ForumFooter>
     </div>)
 }

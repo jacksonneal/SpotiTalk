@@ -1,23 +1,22 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
+import CommentForm from './CommentForm';
+import CommentList from './CommentList';
 
 export default function ForumPost(props) {
-    const { post, deletePost, isModerator } = props;
+    const { post, deletePost, isModerator, userId } = props;
+    const [openComments, setOpenComments] = useState(false);
+    const [comments, setComments] = useState([]);
 
     function canDelete() {
         return !isModerator || isModerator === '0';
     }
 
     return (
-        <div id={post.id} key={post.id} className="row post">
-            <div className="col-12">
-                <div className="panel-heading post-header">
-                    <span className="pull-left">
-                        #{post.post_id}
-                    </span>
-                    <span className="pull-left">
-                        {post.title}
-                    </span>
+        <div className="container-fluid mt-1">
+            <Card className="bg-dark text-white">
+                <Card.Header bg="info" text="white">
                     <time className="pull-right">
                         <span className="calendar">
                             <i className="fa fa-calendar"></i>
@@ -26,20 +25,20 @@ export default function ForumPost(props) {
                         <span className="clock">
                             <i className="fa fa-clock-o"></i>
                         </span>
-                        {post.time}
                     </time>
-                    <Button disabled={canDelete()} className="btn btn-default" onClick={() => deletePost(post.post_id)}>
-                        Delete
-                    </Button>
-                </div>
-            </div>
-            <div className="col-12">
-                <div className="post-body">
+                    <span className="pull-left mr-3">
+                        #{post.post_id}
+                    </span>
+                    <span className="mb-2 text-muted pull-left">
+                        {post.subject}
+                    </span>
+                </Card.Header>
+                <Card.Body>
                     <div className="row">
                         <div className="col-8">
                             <div className="row">
                                 <h3 className="subject-line">
-                                    {post.subject}
+                                    {post.title}
                                 </h3>
                             </div>
                             <div>
@@ -47,7 +46,10 @@ export default function ForumPost(props) {
                             </div>
                             <div className="row">
                                 <p className="post-content">
-                                    {post.content}
+                                    <Card.Text>
+
+                                        {post.content}
+                                    </Card.Text>
                                 </p>
                             </div>
                         </div>
@@ -56,19 +58,21 @@ export default function ForumPost(props) {
                             <img className="image-box" alt='Post' src={post.img_src} />
                         </div>
                     </div>
-                </div>
-            </div>
-            <div className="col-12">
-                <div className="post-footer">
-                    <span className="pull-left">
-                        Like
-                    </span>
-                    <span className="pull-right">
-                        Reply
-                    </span>
-                </div>
-            </div>
+                </Card.Body>
+                <Card.Footer>
+                    <Button disabled={canDelete()} className="btn btn-danger pull-left" onClick={() => deletePost(post.post_id)}>
+                        Delete
+                    </Button>
+                    <Button disabled={!userId} className="btn btn-success pull-right" onClick={() => setOpenComments(!openComments)}>
+                        {!openComments && <i className="fa fa-sort-down mr-2"></i>}
+                        {openComments && <i className="fa fa-sort-up mr-2"></i>}
+                        Comments
+                    </Button>
+                </Card.Footer>
+            </Card >
+            <CommentForm openComments={openComments} postId={post.post_id} userId={userId}>
+            </CommentForm>
+            <CommentList open={openComments} comments={comments}></CommentList>
         </div>
     )
 }
-
