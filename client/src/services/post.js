@@ -1,7 +1,10 @@
 import { api } from '../config';
 
-async function getPosts() {
-    const res = await fetch(`${api}/posts`);
+async function getPosts(query) {
+    if (query === undefined) {
+        query = '';
+    }
+    const res = await fetch(`${api}/posts?query=${query}`);
     return await res.json();
 }
 

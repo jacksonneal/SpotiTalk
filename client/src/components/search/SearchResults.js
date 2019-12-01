@@ -3,17 +3,23 @@ import SongResult from './SongResult.js';
 import ArtistResult from './ArtistResult.js';
 import AlbumResult from './AlbumResult.js';
 import Forum from '../forum/Forum.js';
+import postService from '../../services/post';
 
 function SearchResults(props) {
   const { criteria, inForum, cookies } = props;
   const [results, setResults] = useState([]);
-
   useEffect(() => {
     async function getResults() {
+      if (inForum) {
+        const query = criteria === undefined ? '' : criteria;
+        const posts = await postService.getPosts(query);
+        setResults(posts);
+        return;
+      }
       if (criteria === undefined) {
         return;
       }
-      const url = inForum ? `/api/forum/${criteria}` : `/api/search/${criteria}`;
+      const url = `/api/search/${criteria}`;
       const res = await fetch(url)
         .then(response => response.json());
       setResults(res);
@@ -22,7 +28,7 @@ function SearchResults(props) {
   }, [criteria, inForum])
 
   if (inForum) {
-    return <Forum {...{ results, cookies }} />
+    return <Forum {...{ results, cookies, criteria }} />
   }
   return results.length === 0 ?
     (<p>Search for a song!</p>) :

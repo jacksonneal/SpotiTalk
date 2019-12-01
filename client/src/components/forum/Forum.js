@@ -4,29 +4,27 @@ import ForumPostList from './ForumPostList';
 import ForumFooter from './ForumFooter';
 
 export default function Forum(props) {
-  const { cookies } = props;
-  const [postList, setPostList] = useState([]);
+  const { cookies, results, criteria } = props;
+  const [postList, setPostList] = useState(props.results);
   const userId = cookies.get("userId");
   const isModerator = cookies.get("isModerator");
 
   useEffect(() => {
-    fetchPosts();
-  }, []);
+    setPostList(results);
+  }, [results]);
 
   async function fetchPosts() {
-    const comments = await service.getPosts();
+    const comments = await service.getPosts(criteria);
     setPostList(comments);
   }
-
   async function createPost(post) {
-    const posts = await service.createPost(post);
-    setPostList(posts);
+    await service.createPost(post);
+    fetchPosts();
   }
 
   async function deletePost(id) {
     await service.deletePost(id);
-    const posts = await service.getPosts();
-    setPostList(posts);
+    fetchPosts();
   }
 
   return (
