@@ -8,7 +8,7 @@ const ArtistWidget = ({ id }) => (
       height="56"
       title="Artist"
       scrolling="no"
-      frameborder="0"
+      frameBorder="0"
       style={{ border: 'none', overflow: 'hidden' }}
       allowtransparency="true">
     </iframe>

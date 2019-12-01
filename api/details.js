@@ -28,7 +28,8 @@ function getArtist(id) {
     return {
       id: artist.id,
       name: artist.name,
-      image: extractImage(artist.images)
+      image: extractImage(artist.images),
+      uri: artist.uri
     };
   });
 }
