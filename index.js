@@ -258,7 +258,7 @@ app.post('/api/posts', (req, res) => {
   spotify_uri = '';
   connectionPool.query(
     'insert into post (spotify_uri, user_id, content, title, subject, img_src) values(?,?,?,?,?,?)',
-    [spotify_uri, 1, content, title, subject, img_src], (error, result) => {
+    [spotify_uri, user_id, content, title, subject, img_src], (error, result) => {
       if (error) {
         console.log(error);
         res.status(500).send('Error Creating a new post');

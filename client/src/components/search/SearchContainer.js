@@ -5,7 +5,6 @@ import SearchResults from './SearchResults.js';
 class SearchContainer extends React.Component {
   getCriteria() {
     try {
-      console.log(this.props);
       return this.props.match.params.criteria;
     } catch {
       return undefined;
@@ -16,7 +15,7 @@ class SearchContainer extends React.Component {
     return (
       <div>
         <SearchBar inForum={this.props.inForum} />
-        <SearchResults criteria={this.getCriteria()} inForum={this.props.inForum} />
+        <SearchResults cookies={this.props.cookies} criteria={this.getCriteria()} inForum={this.props.inForum} />
       </div>
     );
   }

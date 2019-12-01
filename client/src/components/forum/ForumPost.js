@@ -1,7 +1,8 @@
 import React from 'react';
+import Button from 'react-bootstrap/Button';
 
 export default function ForumPost(props) {
-    const { post, deletePost } = props;
+    const { post, deletePost, isModerator } = props;
 
     return (
         <div id={post.id} key={post.id} className="row post">
@@ -23,9 +24,9 @@ export default function ForumPost(props) {
                         </span>
                         {post.time}
                     </time>
-                    <button className="btn btn-default" onClick={() => deletePost(post.post_id)}>
+                    <Button disabled={isModerator == 0} className="btn btn-default" onClick={() => deletePost(post.post_id)}>
                         Delete
-              </button>
+                    </Button>
                 </div>
             </div>
             <div className="col-12">

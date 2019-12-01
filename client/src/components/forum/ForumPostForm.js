@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 export default function ForumPostForm(props) {
-    const { postAndClose } = props;
+    const { postAndClose, userId } = props;
     const [title, setTitle] = useState('');
     const [subject, setSubject] = useState('');
     const [content, setContent] = useState('');
@@ -9,6 +9,7 @@ export default function ForumPostForm(props) {
 
     function post() {
         const post = {
+            user_id: userId,
             title,
             subject,
             content,

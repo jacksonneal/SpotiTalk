@@ -5,9 +5,9 @@ import AlbumResult from './AlbumResult.js';
 import Forum from '../forum/Forum.js';
 
 function SearchResults(props) {
-  const { criteria, inForum } = props;
+  const { criteria, inForum, cookies } = props;
   const [results, setResults] = useState([]);
-  console.log(criteria);
+  console.log(cookies);
 
   useEffect(() => {
     async function getResults() {
@@ -17,14 +17,13 @@ function SearchResults(props) {
       const url = inForum ? `/api/forum/${criteria}` : `/api/search/${criteria}`;
       const res = await fetch(url)
         .then(response => response.json());
-      console.log(res);
       setResults(res);
     }
     getResults();
   }, [criteria, inForum])
 
   if (inForum) {
-    return <Forum {...{ results }} />
+    return <Forum {...{ results, cookies }} />
   }
   return results.length === 0 ?
     (<p>Search for a song!</p>) :

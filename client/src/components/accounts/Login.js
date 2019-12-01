@@ -12,12 +12,12 @@ export default function Login(props) {
 
     async function executeSignIn() {
         try {
-            const userId = await accountService.login(
+            const user = await accountService.login(
                 userName,
                 password
             );
-            console.log(userId);
-            cookies.set("userId", userId, { path: '/' });
+            cookies.set("userId", user.userId, { path: '/' });
+            cookies.set("isModerator", user.isModerator, { path: '/' })
             setSuccessLogin(true);
         } catch (e) {
             console.log(e);

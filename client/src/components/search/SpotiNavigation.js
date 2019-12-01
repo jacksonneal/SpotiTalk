@@ -9,6 +9,7 @@ export default function SpotiNavigation(props) {
 
   function logClick() {
     cookies.remove("userId", { path: '/' });
+    cookies.remove("isModerator", { path: '/' });
   }
 
   function logText() {

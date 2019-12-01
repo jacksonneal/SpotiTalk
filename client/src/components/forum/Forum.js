@@ -4,7 +4,10 @@ import ForumPostList from './ForumPostList';
 import ForumFooter from './ForumFooter';
 
 export default function Forum(props) {
+  const { cookies } = props;
   const [postList, setPostList] = useState([]);
+  const userId = cookies.get("userId");
+  const isModerator = cookies.get("isModerator");
 
   useEffect(() => {
     fetchPosts();
@@ -28,7 +31,7 @@ export default function Forum(props) {
 
   return (
     <div>
-      <ForumPostList posts={postList} deletePost={deletePost}></ForumPostList>
-      <ForumFooter {...{ createPost }}></ForumFooter>
+      <ForumPostList isModerator={isModerator} posts={postList} deletePost={deletePost}></ForumPostList>
+      <ForumFooter {...{ createPost, userId }}></ForumFooter>
     </div>)
 }
