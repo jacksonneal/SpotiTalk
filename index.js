@@ -255,7 +255,6 @@ app.post('/api/posts/:postID/comments', (req, res) => {
 app.post('/api/posts', (req, res) => {
   let { user_id, spotify_uri, content, title, subject, postImg } = req.body;
   const img_src = postImg;
-  spotify_uri = '';
   connectionPool.query(
     'insert into post (spotify_uri, user_id, content, title, subject, img_src) values(?,?,?,?,?,?)',
     [spotify_uri, user_id, content, title, subject, img_src], (error, result) => {

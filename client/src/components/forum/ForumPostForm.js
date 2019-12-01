@@ -14,6 +14,7 @@ export default function ForumPostForm(props) {
             subject,
             content,
             postImg: postImage,
+            spotify_uri: '',
         }
         postAndClose(post);
     }

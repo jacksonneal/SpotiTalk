@@ -46,6 +46,10 @@ export default function ForumPost(props) {
                     <span className="pull-left mr-3">
                         #{post.post_id}
                     </span>
+                    <span className="pull-left mr-3">
+                        <i className="fa fa-user mr-2"></i>
+                        {post.username}
+                    </span>
                     <span className="mb-2 text-muted pull-left">
                         {post.subject}
                     </span>
@@ -69,7 +73,9 @@ export default function ForumPost(props) {
                         </div>
                         <hr className="break-line" />
                         <div className="col-4">
-                            <img className="image-box" alt='Post' src={post.img_src} />
+                            {post.img_src &&
+                                <img className="image-box" alt='Post' src={post.img_src} />
+                            }
                         </div>
                     </div>
                 </Card.Body>
