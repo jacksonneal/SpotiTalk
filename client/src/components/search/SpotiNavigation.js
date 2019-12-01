@@ -1,21 +1,44 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Navbar from 'react-bootstrap/Navbar';
+import Nav from 'react-bootstrap/Nav';
+import NavDropdown from 'react-bootstrap/NavDropdown';
 
 class SpotiNavigation extends React.Component {
+
+  logClick() {
+
+  }
+
+  exploreClick() {
+    //this.props.setInForum(false);
+  }
+
+  forumClick() {
+    //this.props.setInForum(true);
+  }
+
+  logText() {
+    return 'Login';
+  }
+
   render() {
     return (
-      <ul className="nav nav-tabs" role="tablist">
-        <li className="nav-item">
-          <Link to="/search">
-            <span className={'spotitalk--link'} onClick={() => this.props.setInForum(false)}>Search</span>
-          </Link>
-        </li>
-        <li className="nav-item">
-          <Link to="/forum">
-            <span className="spotitalk--link" onClick={() => this.props.setInForum(true)}>Forum</span>
-          </Link>
-        </li>
-      </ul>
+      <Navbar bg="light" expand="lg">
+        <Navbar.Brand>SpotiTalk</Navbar.Brand>
+        <Navbar.Toggle />
+        <Navbar.Collapse>
+          <Nav className="mr-auto">
+            <Nav.Link href="/search" onClick={this.exploreClick}>Explore</Nav.Link>
+            <Nav.Link href="/forum" onClick={this.forumClick}>Forum</Nav.Link>
+            <Nav.Link href="login" onClick={this.logClick}>{this.logText()}</Nav.Link>
+            <NavDropdown title="Directory">
+              <NavDropdown.Item href="AboutUs">About Us</NavDropdown.Item>
+              <NavDropdown.Divider />
+              <NavDropdown.Item href="Feedback">Provide Feedback</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
+        </Navbar.Collapse>
+      </Navbar>
     );
   }
 }

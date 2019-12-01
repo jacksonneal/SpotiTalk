@@ -19,7 +19,7 @@ function SearchResults(props) {
       setResults(res);
     }
     getResults();
-  }, [criteria])
+  }, [criteria, inForum])
 
   if (inForum) {
     return <Forum {...{ results }} />

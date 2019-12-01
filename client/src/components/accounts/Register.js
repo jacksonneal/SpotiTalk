@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
-import accountService from '../services/AccountService';
+import accountService from '../../services/account';
 
 export default function Register(props) {
     const [successRegister, setSuccessRegister] = useState(false);
@@ -16,12 +16,11 @@ export default function Register(props) {
             if (password !== confPassword) {
                 throw new Error("Passwords must match");
             }
-
             const user = await accountService.registerUser({
                 isModerator: userType === "moderator" ? true : false,
                 userName,
                 password,
-                confPassworduser
+                confPassword
             });
             // Need to save user in cookies here
             setSuccessRegister(true);
@@ -88,7 +87,7 @@ export default function Register(props) {
                         </button>
                         <div className="row">
                             <div className="col-6">
-                                <Link to={{
+                                <Link className="float-left" to={{
                                     pathname: "/login",
                                 }}
                                 >

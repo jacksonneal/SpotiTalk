@@ -48,7 +48,7 @@ export default function ForumPost(props) {
                         </div>
                         <hr className="break-line" />
                         <div className="col-4">
-                            <img className="image-box" src={post.img_src} />
+                            <img className="image-box" alt='Post' src={post.img_src} />
                         </div>
                     </div>
                 </div>

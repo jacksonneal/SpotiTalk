@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router';
-import accountService from '../services/account';
+import accountService from '../../services/account';
 
 export default function Login(props) {
     const [userName, setUserName] = useState('');
@@ -60,7 +60,7 @@ export default function Login(props) {
                         </button>
                         <div className="row">
                             <div className="col-6">
-                                <span>Forgot Password?</span>
+                                <span className="float-left">Forgot Password?</span>
                             </div>
                             <div className="col-6">
                                 <Link className="float-right" to={{
