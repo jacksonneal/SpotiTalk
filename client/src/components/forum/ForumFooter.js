@@ -3,7 +3,7 @@ import { Button, Collapse } from 'react-bootstrap';
 import ForumPostForm from './ForumPostForm';
 
 export default function ForumFooter(props) {
-    const { createPost, userId } = props;
+    const { createPost, userId, autoImg } = props;
     const [open, setOpen] = useState(false);
 
     function postAndClose(post) {
@@ -15,7 +15,7 @@ export default function ForumFooter(props) {
         <>
             <Collapse className="post-form fixed-bottom" in={open}>
                 <div>
-                    <ForumPostForm {...{ userId, postAndClose }}></ForumPostForm>
+                    <ForumPostForm {...{ userId, postAndClose, autoImg }}></ForumPostForm>
                 </div>
             </Collapse>
             <footer className="navbar fixed-bottom create-post">

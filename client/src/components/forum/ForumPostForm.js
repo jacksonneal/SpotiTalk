@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 
 export default function ForumPostForm(props) {
-    const { postAndClose, userId } = props;
+    const { postAndClose, userId, autoImg } = props;
     const [title, setTitle] = useState('');
     const [subject, setSubject] = useState('');
     const [content, setContent] = useState('');
-    const [postImage, setPostImage] = useState('');
+    const [postImage, setPostImage] = useState(autoImg || '');
 
     function post() {
         const post = {
@@ -25,10 +25,10 @@ export default function ForumPostForm(props) {
                 placeholder="Title"
                 value={title}
                 onChange={(e) => setTitle(e.target.value)} />
-            <input className="form-control" type="text" placeholder="Subject"
+            <input className="form-control" type="text" placeholder="Searchable Subjects"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)} />
-            <input className="form-control" type="text" placeholder="Image URL"
+            <input disabled={autoImg} className="form-control" type="text" placeholder="Image URL"
                 value={postImage}
                 onChange={(e) => setPostImage(e.target.value)} />
             <textarea rows={3} className="form-control form-control-sm" type="text"

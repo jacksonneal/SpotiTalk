@@ -16,7 +16,8 @@ function getSong(id) {
         id: song.album.id,
         name: song.album.name,
         image: extractImage(song.album.images)
-      }
+      },
+      uri: song.uri
     };
   });
 };

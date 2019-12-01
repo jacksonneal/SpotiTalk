@@ -116,7 +116,7 @@ app.get('/api/posts', (req, res) => {
   const { query } = req.query;
   const queryLike = `%${query}%`;
   connectionPool.query(
-    'select u.username, u.user_id,content,spotify_uri,post_id,title,subject,ts from post left join user u on post.user_id = u.user_id where spotify_uri = ? or subject like ? order by ts desc;',
+    'select u.username, u.user_id,content,spotify_uri,post_id,img_src, title,subject,ts from post left join user u on post.user_id = u.user_id where spotify_uri = ? or subject like ? order by ts desc;',
     [query, queryLike],
     (err, result, fields) => {
       if (err) {
