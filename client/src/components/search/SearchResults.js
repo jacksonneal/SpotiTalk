@@ -7,7 +7,6 @@ import Forum from '../forum/Forum.js';
 function SearchResults(props) {
   const { criteria, inForum, cookies } = props;
   const [results, setResults] = useState([]);
-  console.log(cookies);
 
   useEffect(() => {
     async function getResults() {

@@ -34,7 +34,6 @@ app.use(function (req, res, next) {
 //used to login a user
 app.get('/api/user', (req, res) => {
   const { userName, password } = req.query;
-  console.log(userName, password);
   connectionPool.query(
     'select user_id, password, is_moderator from user where username = ?',
     [userName],
@@ -207,7 +206,6 @@ app.get('/api/users/:userID', (req, res) => {
 //Add a user
 app.post('/api/users', (req, res) => {
   const { username } = req.body;
-  console.log(req.body);
   connectionPool.query(
     'insert into user (username) value (?);',
     [username],

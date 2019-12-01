@@ -24,7 +24,6 @@ function getSong(id) {
 function getArtist(id) {
   const uri = `https://api.spotify.com/v1/artists/${id}`;
   return makeApiRequest(uri).then(artist => {
-    console.log(artist)
     return {
       id: artist.id,
       name: artist.name,
