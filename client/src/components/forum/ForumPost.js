@@ -4,6 +4,10 @@ import Button from 'react-bootstrap/Button';
 export default function ForumPost(props) {
     const { post, deletePost, isModerator } = props;
 
+    function canDelete() {
+        return !isModerator || isModerator === '0';
+    }
+
     return (
         <div id={post.id} key={post.id} className="row post">
             <div className="col-12">
@@ -24,7 +28,7 @@ export default function ForumPost(props) {
                         </span>
                         {post.time}
                     </time>
-                    <Button disabled={isModerator == 0} className="btn btn-default" onClick={() => deletePost(post.post_id)}>
+                    <Button disabled={canDelete()} className="btn btn-default" onClick={() => deletePost(post.post_id)}>
                         Delete
                     </Button>
                 </div>
