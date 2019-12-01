@@ -5,6 +5,7 @@ import SearchResults from './SearchResults.js';
 class SearchContainer extends React.Component {
   getCriteria() {
     try {
+      console.log(this.props);
       return this.props.match.params.criteria;
     } catch {
       return undefined;

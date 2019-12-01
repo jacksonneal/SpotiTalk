@@ -36,7 +36,7 @@ app.get('/api/user', (req, res) => {
   const { userName, password } = req.query;
   console.log(userName, password);
   connectionPool.query(
-    'select user_id, password from user where username = ?',
+    'select user_id, password, is_moderator from user where username = ?',
     [userName],
     (err, result, fields) => {
       if (err) {
@@ -45,7 +45,7 @@ app.get('/api/user', (req, res) => {
       try {
         bcrypt.compare(password, result[0].password, function (err, compRes) {
           if (compRes === true) {
-            res.send({ userId: result[0].user_id });
+            res.send({ userId: result[0].user_id, isModerator: result[0].is_moderator });
           } else {
             res.status(404).send({ error: 'Unable to login: username or password incorrect' });
           }

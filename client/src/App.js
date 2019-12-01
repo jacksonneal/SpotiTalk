@@ -23,12 +23,12 @@ class App extends React.Component {
       <>
         <SpotiNavigation {...this.props} />
         <div className='App'>
-          <Router>
+          <Router basename="">
             <div>
               <Route exact path={["/", "/search", "/search/:criteria"]}
-                render={() => <SearchContainer {...this.props} inForum={false} />} />
+                render={(props) => <SearchContainer {...this.props} {...props} inForum={false} />} />
               <Route exact path={["/forum", "/forum/:criteria"]}
-                render={() => <SearchContainer {...this.props} inForum={true} />} />
+                render={(props) => <SearchContainer {...this.props} {...props} inForum={true} />} />
               <Route exact path="/songs/:id" component={SongView} />
               <Route exact path="/albums/:id" component={AlbumView} />
               <Route exact path="/artists/:id" component={ArtistView} />

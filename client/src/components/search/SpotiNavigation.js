@@ -24,7 +24,7 @@ export default function SpotiNavigation(props) {
           <Nav className="mr-auto">
             <Nav.Link href="/search">Explore</Nav.Link>
             <Nav.Link href="/forum">Forum</Nav.Link>
-            <Nav.Link href="login" onClick={logClick}>{logText()}</Nav.Link>
+            <Nav.Link href="/login" onClick={logClick}>{logText()}</Nav.Link>
             <NavDropdown title="Directory">
               <NavDropdown.Item href="AboutUs">About Us</NavDropdown.Item>
               <NavDropdown.Divider />

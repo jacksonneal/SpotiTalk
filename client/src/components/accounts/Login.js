@@ -16,6 +16,7 @@ export default function Login(props) {
                 userName,
                 password
             );
+            console.log(userId);
             cookies.set("userId", userId, { path: '/' });
             setSuccessLogin(true);
         } catch (e) {
