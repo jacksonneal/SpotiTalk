@@ -1,8 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import CommentForm from './CommentForm';
 import CommentList from './CommentList';
+import commentService from '../../services/comment';
+
 
 export default function ForumPost(props) {
     const { post, deletePost, isModerator, userId } = props;
@@ -12,6 +14,15 @@ export default function ForumPost(props) {
     function canDelete() {
         return !isModerator || isModerator === '0';
     }
+
+    async function fetchComments() {
+        const comments = await commentService.getComments(post.post_id);
+        setComments(comments);
+    }
+
+    useEffect(() => {
+        fetchComments();
+    }, []);
 
     return (
         <div className="container-fluid mt-1">
@@ -45,12 +56,9 @@ export default function ForumPost(props) {
                                 <hr className="break-line" />
                             </div>
                             <div className="row">
-                                <p className="post-content">
-                                    <Card.Text>
-
-                                        {post.content}
-                                    </Card.Text>
-                                </p>
+                                <Card.Text>
+                                    {post.content}
+                                </Card.Text>
                             </div>
                         </div>
                         <hr className="break-line" />
@@ -70,7 +78,7 @@ export default function ForumPost(props) {
                     </Button>
                 </Card.Footer>
             </Card >
-            <CommentForm openComments={openComments} postId={post.post_id} userId={userId}>
+            <CommentForm openComments={openComments} postId={post.post_id} userId={userId} fetchComments={fetchComments}>
             </CommentForm>
             <CommentList open={openComments} comments={comments}></CommentList>
         </div>

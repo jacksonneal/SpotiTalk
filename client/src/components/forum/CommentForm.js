@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import Collapse from 'react-bootstrap/Collapse';
+import commentService from '../../services/comment';
 
 export default function CommentForm(props) {
-    const { openComments, userId, postId } = props;
+    const { openComments, userId, postId, fetchComments } = props;
     const [commentContent, setCommentContent] = useState('');
 
     async function postComment() {
-        console.log("posting a comment");
+        await commentService.createComment(postId, userId, commentContent);
+        fetchComments();
+        setCommentContent('');
     }
 
     return (

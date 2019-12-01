@@ -138,9 +138,9 @@ app.get('/api/posts/:postID', (req, res) => {
 });
 
 //Get replies to a post
-app.get('/api/posts/:postID/replies', (req, res) => {
+app.get('/api/posts/:postID/comments', (req, res) => {
   connectionPool.query(
-    'select u.username, content from reply left join user u on reply.user_id = u.user_id where parent_id = ?;',
+    'select u.username, reply_id, content from reply left join user u on reply.user_id = u.user_id where parent_id = ?;',
     [req.params.postID], (err, result) => {
       if (err) {
         console.log(err);
@@ -228,11 +228,13 @@ app.post('/api/users', (req, res) => {
 });
 
 //Add a reply to a post
-app.post('/api/posts/:postID/replies', (req, res) => {
-  const { parent_id, content, user_id } = req.body;
+app.post('/api/posts/:postID/comments', (req, res) => {
+  const { postID } = req.params;
+  const { content, userId } = req.body;
+  const user_id = userId;
   connectionPool.query(
     'insert into reply (parent_id, content, user_id) values (?,?,?)',
-    [parent_id, content, user_id], (error, result) => {
+    [postID, content, user_id], (error, result) => {
       if (error) {
         console.log(error);
         res.status(500).send(`Error replying to post ${parent_id}`);
