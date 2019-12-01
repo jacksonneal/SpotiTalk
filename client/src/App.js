@@ -15,24 +15,19 @@ class App extends React.Component {
     this.state = {
       inForum: false,
     }
-    this.setInForum = this.setInForum.bind(this);
-  }
-
-  setInForum(val) {
-    this.setState({
-      inForum: val,
-    });
   }
 
   render() {
     return (
       <>
-        <SpotiNavigation {...this.props} inForum={this.state.inForum} setInForum={this.setInForum} />
+        <SpotiNavigation {...this.props} />
         <div className='App'>
           <Router>
             <div>
-              <Route exact path={["/", "/search", "/search/:criteria", "/forum", "/forum/:criteria"]}
-                render={() => <SearchContainer {...this.props} inForum={this.state.inForum} />} />
+              <Route exact path={["/", "/search", "/search/:criteria"]}
+                render={() => <SearchContainer {...this.props} inForum={false} />} />
+              <Route exact path={["/forum", "/forum/:criteria"]}
+                render={() => <SearchContainer {...this.props} inForum={true} />} />
               <Route exact path="/songs/:id" component={SongView} />
               <Route exact path="/albums/:id" component={AlbumView} />
               <Route exact path="/artists/:id" component={ArtistView} />

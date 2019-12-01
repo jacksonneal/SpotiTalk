@@ -37,9 +37,11 @@ create table user
 (
     username text null,
     password text not null,
-    isModerator tinyint not null default 0,
+    is_moderator tinyint not null default 0,
     user_id  int auto_increment
         primary key
 );
 
-select * from post;
+select * from user;
+
+show tables;
