@@ -51,10 +51,10 @@ class SongView extends React.Component {
             <p>Album: <a className='spotitalk--link' href={`/albums/${song.album.id}`}>{song.album.name}</a></p>
             <SongWidget id={song.id} />
             <p className='mt-3'>
-              <a className='spotitalk--link' href={`/search/${song.name}`}>Search for this song</a>
+              <a className='spotitalk--link' href={`/search/${song.name}`}>Search for related songs, artists, and albums</a>
             </p>
             <p className='mt-3'>
-              <a className='spotitalk--link' href={`/forum/${song.uri}`}>View Song in Forum</a>
+              <a className='spotitalk--link' href={`/search/${song.uri}`}>Search for forum posts about this song</a>
             </p>
             <a href='/' className='text-secondary'>Return to home</a>
           </div>

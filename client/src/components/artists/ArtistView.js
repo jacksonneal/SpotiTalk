@@ -44,10 +44,10 @@ class ArtistView extends React.Component {
             <img className='mb-4' src={artist.image} style={{ height: '300px', width: '300px' }} alt={artist.name} />
             <ArtistWidget id={artist.id} />
             <p className='mt-3'>
-              <a className='spotitalk--link' href={`/search/${artist.name}`}>Search for this artist</a>
+              <a className='spotitalk--link' href={`/search/${artist.name}`}>Search for related songs, artists, and albums</a>
             </p>
             <p className='mt-3'>
-              <a className='spotitalk--link' href={`/forum/${artist.uri}`}>View Artist in Forum</a>
+              <a className='spotitalk--link' href={`/search/${artist.uri}`}>Search for forum posts about this artist</a>
             </p>
             <a href='/' className='text-secondary'>Return to home</a>
           </div>

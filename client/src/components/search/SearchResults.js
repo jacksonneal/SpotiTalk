@@ -28,6 +28,15 @@ function SearchResults(props) {
     (<p>Search for a song, artist, album, or forum post!</p>) :
     (
       <div>
+        {results.posts.length === 0 ? (
+          <p className='font-italic my-4'>No forum results found</p>
+        ) : (
+            <div>
+              <h1 className='my-4'>Forum Posts</h1>
+              {results.posts.map(post => <PostResult post={post} key={post.post_id} />)}
+            </div>
+          )}
+
         {results.songs.length === 0 ? (
           <p className='font-italic my-4'>No song results found</p>
         ) : (
@@ -52,15 +61,6 @@ function SearchResults(props) {
             <div>
               <h1 className='my-4'>Albums</h1>
               {results.albums.map(album => <AlbumResult album={album} key={album.id} />)}
-            </div>
-          )}
-
-        {results.posts.length === 0 ? (
-          <p className='font-italic my-4'>No forum results found</p>
-        ) : (
-            <div>
-              <h1 className='my-4'>Forum Posts</h1>
-              {results.posts.map(post => <PostResult post={post} key={post.post_id} />)}
             </div>
           )}
 

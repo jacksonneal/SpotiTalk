@@ -50,10 +50,10 @@ class AlbumView extends React.Component {
             <img className='mb-4' src={album.image} style={{ height: '300px', width: '300px' }} alt={album.name} />
             <AlbumWidget id={album.id} />
             <p className='mt-3'>
-              <a className='spotitalk--link' href={`/search/${album.name}`}>Search for this album</a>
+              <a className='spotitalk--link' href={`/search/${album.name}`}>Search for related songs, artists, and albums</a>
             </p>
             <p className='mt-3'>
-              <a className='spotitalk--link' href={`/forum/${album.uri}`}>View Album in Forum</a>
+              <a className='spotitalk--link' href={`/search/${album.uri}`}>Search for forum posts about this album</a>
             </p>
             <a href='/' className='text-secondary'>Return to home</a>
           </div>
