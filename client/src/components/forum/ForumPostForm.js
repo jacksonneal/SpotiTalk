@@ -28,9 +28,6 @@ export default function ForumPostForm(props) {
             <input className="form-control" type="text" placeholder="Searchable Subjects"
                 value={subject}
                 onChange={(e) => setSubject(e.target.value)} />
-            <input disabled={autoImg} className="form-control" type="text" placeholder="Image URL"
-                value={postImage}
-                onChange={(e) => setPostImage(e.target.value)} />
             <textarea rows={3} className="form-control form-control-sm" type="text"
                 value={content}
                 placeholder="Content"

@@ -35,7 +35,7 @@ export default function Forum(props) {
   return (
     <div>
       <p>Most recent forum posts</p>
+      <p>To make a new post, <a className='spotitalk--link' href='/search'>search for something to post about</a></p>
       <ForumPostList userId={userId} isModerator={isModerator} posts={postList} deletePost={deletePost}></ForumPostList>
-      <ForumFooter {...{ createPost, userId }}></ForumFooter>
     </div>)
 }
