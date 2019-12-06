@@ -11,7 +11,7 @@ class SearchBar extends React.Component {
   }
 
   getQueryURL() {
-    return this.props.inForum ? `/forum/${this.state.value}` : `/search/${this.state.value}`;
+    return `/search/${this.state.value}`;
   }
 
   render() {

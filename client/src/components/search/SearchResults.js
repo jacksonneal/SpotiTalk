@@ -7,16 +7,10 @@ import Forum from '../forum/Forum.js';
 import postService from '../../services/post';
 
 function SearchResults(props) {
-  const { criteria, inForum, cookies } = props;
+  const { criteria, cookies } = props;
   const [results, setResults] = useState([]);
   useEffect(() => {
     async function getResults() {
-      if (inForum) {
-        const query = criteria === undefined ? '' : criteria;
-        const posts = await postService.getPosts(query);
-        setResults(posts);
-        return;
-      }
       if (criteria === undefined) {
         return;
       }
@@ -28,11 +22,8 @@ function SearchResults(props) {
       setResults(res);
     }
     getResults();
-  }, [criteria, inForum])
+  }, [criteria])
 
-  if (inForum) {
-    return <Forum {...{ results, cookies, criteria }} />
-  }
   return results.length === 0 ?
     (<p>Search for a song, artist, album, or forum post!</p>) :
     (

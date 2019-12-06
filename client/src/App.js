@@ -9,15 +9,9 @@ import SearchContainer from './components/search/SearchContainer';
 import SpotiNavigation from './components/search/SpotiNavigation';
 import Login from './components/accounts/Login';
 import Register from './components/accounts/Register';
+import Forum from './components/forum/Forum.js';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      inForum: false,
-    }
-  }
-
   render() {
     return (
       <>
@@ -26,9 +20,9 @@ class App extends React.Component {
           <Router basename="">
             <div>
               <Route exact path={["/", "/search", "/search/:criteria"]}
-                render={(props) => <SearchContainer {...this.props} {...props} inForum={false} />} />
+                render={(props) => <SearchContainer {...this.props} {...props} />} />
               <Route exact path={["/forum", "/forum/:criteria"]}
-                render={(props) => <SearchContainer {...this.props} {...props} inForum={true} />} />
+                render={(props) => <Forum {...this.props} {...props} results={[]} critera=''/>} />
               <Route exact path="/songs/:id" render={(props) => <SongView {...props} {...this.props} />} />
               <Route exact path="/albums/:id" render={(props) => <AlbumView {...props} {...this.props} />} />
               <Route exact path="/artists/:id" render={(props) => <ArtistView {...props} {...this.props} />} />

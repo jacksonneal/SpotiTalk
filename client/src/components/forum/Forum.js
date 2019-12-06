@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import service from '../../services/post';
 import ForumPostList from './ForumPostList';
 import ForumFooter from './ForumFooter';
+import postService from '../../services/post';
 
 export default function Forum(props) {
   const { cookies, results, criteria } = props;
@@ -10,8 +11,12 @@ export default function Forum(props) {
   const isModerator = cookies.get("isModerator");
 
   useEffect(() => {
-    setPostList(results);
-  }, [results]);
+    async function getResults() {
+      const posts = await postService.getPosts('');
+      setPostList(posts);
+    }
+    getResults();
+  }, []);
 
   async function fetchPosts() {
     const comments = await service.getPosts(criteria);
@@ -29,6 +34,7 @@ export default function Forum(props) {
 
   return (
     <div>
+      <p>Most recent forum posts</p>
       <ForumPostList userId={userId} isModerator={isModerator} posts={postList} deletePost={deletePost}></ForumPostList>
       <ForumFooter {...{ createPost, userId }}></ForumFooter>
     </div>)
