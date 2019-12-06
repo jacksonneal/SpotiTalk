@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import SongResult from './SongResult.js';
 import ArtistResult from './ArtistResult.js';
 import AlbumResult from './AlbumResult.js';
+import PostResult from './PostResult.js';
 import Forum from '../forum/Forum.js';
 import postService from '../../services/post';
 
@@ -22,6 +23,8 @@ function SearchResults(props) {
       const url = `/api/search/${criteria}`;
       const res = await fetch(url)
         .then(response => response.json());
+      res.posts = await postService.getPosts(criteria);
+      console.log(res.posts);
       setResults(res);
     }
     getResults();
@@ -31,7 +34,7 @@ function SearchResults(props) {
     return <Forum {...{ results, cookies, criteria }} />
   }
   return results.length === 0 ?
-    (<p>Search for a song!</p>) :
+    (<p>Search for a song, artist, album, or forum post!</p>) :
     (
       <div>
         {results.songs.length === 0 ? (
@@ -58,6 +61,15 @@ function SearchResults(props) {
             <div>
               <h1 className='my-4'>Albums</h1>
               {results.albums.map(album => <AlbumResult album={album} key={album.id} />)}
+            </div>
+          )}
+
+        {results.posts.length === 0 ? (
+          <p className='font-italic my-4'>No forum results found</p>
+        ) : (
+            <div>
+              <h1 className='my-4'>Forum Posts</h1>
+              {results.posts.map(post => <PostResult post={post} key={post.post_id} />)}
             </div>
           )}
 

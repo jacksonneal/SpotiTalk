@@ -17,7 +17,7 @@ class SearchBar extends React.Component {
   render() {
     return (
       <div className="input-group mb-3">
-        <input type="text" className="form-control" placeholder='Search for a song, artist, or album' value={this.state.value} onChange={this.handleChange} />
+        <input type="text" className="form-control" placeholder='Search for a song, artist, album, or forum post' value={this.state.value} onChange={this.handleChange} />
         <div className="input-group-append">
           <Link to={this.getQueryURL()}>
             <span className="btn btn-light">Search</span>
