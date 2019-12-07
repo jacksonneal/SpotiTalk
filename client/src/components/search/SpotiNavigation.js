@@ -19,7 +19,7 @@ export default function SpotiNavigation(props) {
   return (
     <>
       <Navbar bg="light" expand="lg">
-        <Navbar.Brand>SpotiTalk</Navbar.Brand>
+        <Navbar.Brand href='/'>SpotiTalk</Navbar.Brand>
         <Navbar.Toggle />
         <Navbar.Collapse>
           <Nav className="mr-auto">
