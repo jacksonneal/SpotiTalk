@@ -10,6 +10,7 @@ import SpotiNavigation from './components/search/SpotiNavigation';
 import Login from './components/accounts/Login';
 import Register from './components/accounts/Register';
 import Forum from './components/forum/Forum.js';
+import Privacy from "./components/privacy/Privacy";
 
 class App extends React.Component {
   render() {
@@ -28,6 +29,7 @@ class App extends React.Component {
               <Route exact path="/artists/:id" render={(props) => <ArtistView {...props} {...this.props} />} />
               <Route exact path="/login" render={() => <Login {...this.props}></Login>} />
               <Route exact path="/register" render={() => <Register {...this.props}></Register>} />
+              <Route exact path="/privacy" render={()=> <Privacy {...this.props}/>}/>
             </div>
           </Router>
         </div>
