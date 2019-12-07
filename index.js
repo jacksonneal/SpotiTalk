@@ -206,6 +206,21 @@ app.get('/api/users/:userID', (req, res) => {
   );
 });
 
+//Get posts for a user
+app.get('/api/users/:userID/posts', (req, res) => {
+  connectionPool.query(
+    'select u.username, u.user_id,content,spotify_uri,post_id,img_src, title,subject,ts from post left join user u on post.user_id = u.user_id where post.user_id = ?;',
+    [req.params.userID],
+    (error, result) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send(`Error retrieving posts for user ${req.params.userID}`);
+      }
+      res.send(result);
+    }
+  );
+});
+
 //Add a user
 app.post('/api/users', (req, res) => {
   const { username } = req.body;
