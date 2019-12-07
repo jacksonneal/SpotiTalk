@@ -11,10 +11,6 @@ export default function ForumPost(props) {
     const [openComments, setOpenComments] = useState(false);
     const [comments, setComments] = useState([]);
 
-    function canDelete() {
-        return !isModerator || isModerator === '0';
-    }
-
     async function fetchComments() {
         const comments = await commentService.getComments(post.post_id);
         setComments(comments);
@@ -80,14 +76,7 @@ export default function ForumPost(props) {
                     </div>
                 </Card.Body>
                 <Card.Footer>
-                    <Button disabled={canDelete()} className="btn btn-danger pull-left" onClick={() => deletePost(post.post_id)}>
-                        Delete
-                    </Button>
-                    <Button disabled={!userId} className="btn btn-success pull-right" onClick={() => setOpenComments(!openComments)}>
-                        {!openComments && <i className="fa fa-sort-down mr-2"></i>}
-                        {openComments && <i className="fa fa-sort-up mr-2"></i>}
-                        Comments
-                    </Button>
+                    <p><a className='spotitalk--link' href={`/posts/${post.post_id}`}>View this post</a></p>
                 </Card.Footer>
             </Card >
             <CommentForm openComments={openComments} postId={post.post_id} userId={userId} fetchComments={fetchComments}>

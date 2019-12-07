@@ -130,7 +130,7 @@ app.get('/api/posts', (req, res) => {
 //Get a post for a given ID
 app.get('/api/posts/:postID', (req, res) => {
   connectionPool.query(
-    'select u.username, content,spotify_uri from post left join user u on post.user_id = u.user_id where post_id = ?;',
+    'select u.username, content,spotify_uri,ts,post_id,img_src,title,subject from post left join user u on post.user_id = u.user_id where post_id = ?;',
     [req.params.postID], (err, result, fields) => {
       if (err) {
         console.log(err);
