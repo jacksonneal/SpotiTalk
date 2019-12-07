@@ -9,11 +9,6 @@ class SongView extends React.Component {
     userId: null
   }
 
-  constructor(props) {
-    super(props);
-    this.createPost = this.createPost.bind(this);
-  }
-
   componentDidMount() {
     const { id } = this.props.match.params;
     const { cookies } = this.props;
@@ -23,14 +18,6 @@ class SongView extends React.Component {
       .then(song => {
         this.setState(() => ({ song, userId }))
       });
-  }
-
-  createPost = async function (post) {
-    const songPost = {
-      ...post,
-      spotify_uri: this.state.song.uri
-    }
-    await postService.createPost(songPost);
   }
 
   render() {
@@ -58,7 +45,7 @@ class SongView extends React.Component {
             </p>
             <a href='/' className='text-secondary'>Return to home</a>
           </div>
-          <ForumFooter {...{ autoImg: this.state.song.album.image, createPost: this.createPost, userId: this.state.userId }}></ForumFooter>
+          <ForumFooter {...{ autoImg: this.state.song.album.image, spotifyUri: this.state.song.uri, userId: this.state.userId }}></ForumFooter>
         </>
       )
   }

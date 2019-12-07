@@ -1,25 +1,11 @@
 import React from 'react';
 import ArtistWidget from './ArtistWidget.js';
-import postService from '../../services/post';
 import ForumFooter from '../forum/ForumFooter';
 
 class ArtistView extends React.Component {
   state = {
     artist: null,
     userId: null,
-  }
-
-  constructor(props) {
-    super(props);
-    this.createPost = this.createPost.bind(this);
-  }
-
-  createPost = async function (post) {
-    const songPost = {
-      ...post,
-      spotify_uri: this.state.artist.uri
-    }
-    await postService.createPost(songPost);
   }
 
   componentDidMount() {
@@ -51,7 +37,7 @@ class ArtistView extends React.Component {
             </p>
             <a href='/' className='text-secondary'>Return to home</a>
           </div>
-          <ForumFooter {...{ autoImg: this.state.artist.image, createPost: this.createPost, userId: this.state.userId }}></ForumFooter>
+          <ForumFooter {...{ autoImg: this.state.artist.image, spotifyUri: this.state.artist.uri, userId: this.state.userId }}></ForumFooter>
         </>
       )
   }

@@ -1,25 +1,11 @@
 import React from 'react';
 import AlbumWidget from './AlbumWidget.js';
-import postService from '../../services/post';
 import ForumFooter from '../forum/ForumFooter';
 
 class AlbumView extends React.Component {
   state = {
     album: null,
     userId: null
-  }
-
-  constructor(props) {
-    super(props);
-    this.createPost = this.createPost.bind(this);
-  }
-
-  createPost = async function (post) {
-    const songPost = {
-      ...post,
-      spotify_uri: this.state.album.uri
-    }
-    await postService.createPost(songPost);
   }
 
   componentDidMount() {
@@ -57,7 +43,7 @@ class AlbumView extends React.Component {
             </p>
             <a href='/' className='text-secondary'>Return to home</a>
           </div>
-          <ForumFooter {...{ autoImg: this.state.album.image, createPost: this.createPost, userId: this.state.userId }}></ForumFooter>
+          <ForumFooter {...{ autoImg: this.state.album.image, spotifyUri: this.state.album.uri, userId: this.state.userId }}></ForumFooter>
         </>
       )
   }
