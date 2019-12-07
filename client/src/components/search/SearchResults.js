@@ -18,7 +18,6 @@ function SearchResults(props) {
       const res = await fetch(url)
         .then(response => response.json());
       res.posts = await postService.getPosts(criteria);
-      console.log(res.posts);
       setResults(res);
     }
     getResults();
