@@ -40,9 +40,6 @@ export default function ForumPost(props) {
                         </span>
                     </time>
                     <span className="pull-left mr-3">
-                        #{post.post_id}
-                    </span>
-                    <span className="pull-left mr-3">
                         <i className="fa fa-user mr-2"></i>
                         <a className="spotitalk--link" href={`/profile/${post.user_id}`}>{post.username}</a>
                     </span>

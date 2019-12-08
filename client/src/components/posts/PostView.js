@@ -79,6 +79,7 @@ class PostView extends React.Component {
         { (isModerator && !moderatesThisPost ) && (
           <i>To moderate this post, please <a className='spotitalk--link' href={this.linkToTopic()}>become a moderator for this topic</a></i>
         )}
+        <a className='spotitalk--link' href={this.linkToTopic()}>Link to the topic being discussed</a>
         <div className="container-fluid mt-1">
             <Card className="bg-dark text-white">
                 <Card.Header bg="info" text="white">
@@ -119,7 +120,9 @@ class PostView extends React.Component {
                         <hr className="break-line" />
                         <div className="col-4">
                             {post.img_src &&
-                                <img className="image-box" alt='Post' src={post.img_src} />
+                                <a href={this.linkToTopic()}>
+                                  <img className="image-box" alt='Post' src={post.img_src} />
+                                </a>
                             }
                         </div>
                     </div>
