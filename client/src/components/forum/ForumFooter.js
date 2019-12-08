@@ -6,7 +6,9 @@ export default function ForumFooter(props) {
     const { createPost, userId, autoImg, spotifyUri } = props;
     const [open, setOpen] = useState(false);
 
-    return (
+    return userId === undefined ? (
+        <p><a className='spotitalk--link' href='/login'>Log in</a> to post about this</p>
+    ) : (
         <>
             <Collapse className="post-form fixed-bottom" in={open}>
                 <div>

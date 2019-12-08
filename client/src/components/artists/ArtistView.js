@@ -42,7 +42,6 @@ class ArtistView extends React.Component {
             <p className='mt-3'>
               <a className='spotitalk--link' href={`/search/${artist.uri}`}>Search for forum posts about this artist</a>
             </p>
-            <a href='/' className='text-secondary'>Return to home</a>
           </div>
           <ForumFooter {...{ autoImg: this.state.artist.image, spotifyUri: this.state.artist.uri, userId: this.state.userId }}></ForumFooter>
         </>

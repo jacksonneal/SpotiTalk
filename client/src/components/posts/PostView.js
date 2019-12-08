@@ -131,7 +131,11 @@ class PostView extends React.Component {
             <div className='mt-2'>
               <CommentList open comments={comments}></CommentList>
             </div>
-            <CommentForm openComments postId={post.post_id} userId={userId} fetchComments={this.fetchComments} />
+            { userId === undefined ? (
+              <p><a className='spotitalk--link' href='/login'>Log in</a> to comment</p>
+            ) : (
+              <CommentForm openComments postId={post.post_id} userId={userId} fetchComments={this.fetchComments} />
+            )}
         </div>
       </div>
     )

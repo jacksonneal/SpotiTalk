@@ -49,7 +49,6 @@ class AlbumView extends React.Component {
             <p className='mt-3'>
               <a className='spotitalk--link' href={`/search/${album.uri}`}>Search for forum posts about this album</a>
             </p>
-            <a href='/' className='text-secondary'>Return to home</a>
           </div>
           <ForumFooter {...{ autoImg: this.state.album.image, spotifyUri: this.state.album.uri, userId: this.state.userId }}></ForumFooter>
         </>

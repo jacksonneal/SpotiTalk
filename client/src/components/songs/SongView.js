@@ -50,7 +50,6 @@ class SongView extends React.Component {
             <p className='mt-3'>
               <a className='spotitalk--link' href={`/search/${song.uri}`}>Search for forum posts about this song</a>
             </p>
-            <a href='/' className='text-secondary'>Return to home</a>
           </div>
           <ForumFooter {...{ autoImg: this.state.song.album.image, spotifyUri: this.state.song.uri, userId: this.state.userId }}></ForumFooter>
         </>
