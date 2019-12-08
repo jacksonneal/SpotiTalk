@@ -332,6 +332,46 @@ app.delete('/api/replies/:replyID', (req, res) => {
     });
 });
 
+// Get moderation privileges for a user
+app.get('/api/user/:userID/moderation', (req, res) => {
+  const { userID } = req.params;
+  connectionPool.query(
+    'select * from moderation where user_id = ?', [userID],
+    (error, result) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send(error);
+      }
+      res.send(result);
+    });
+});
+
+// Create moderation privileges for a user
+app.post('/api/moderation', (req, res) => {
+  const { user_id, spotify_uri } = req.body;
+  connectionPool.query(
+    'insert into moderation (user_id, spotify_uri) values(?,?)', [user_id, spotify_uri],
+    (error, result) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send(error);
+      }
+      res.send(result);
+    });
+});
+
+// Remove moderation privileges for a user
+app.delete('/api/moderation/:moderationID', (req, res) => {
+  const { moderationID } = req.params;
+  connectionPool.query('delete from moderation where id = ?', [moderationID],
+    (error, result) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send(error);
+      }
+      res.send(result);
+    });
+});
 
 // handles any requests that don't match the ones above
 app.get('*', (req, res) => {

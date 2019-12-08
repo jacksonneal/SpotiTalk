@@ -1,6 +1,7 @@
 import React from 'react';
 import ArtistWidget from './ArtistWidget.js';
 import ForumFooter from '../forum/ForumFooter';
+import ModerationToggle from '../moderation/ModerationToggle.js';
 
 class ArtistView extends React.Component {
   state = {
@@ -26,6 +27,12 @@ class ArtistView extends React.Component {
       (
         <>
           <div>
+            <ModerationToggle
+              spotifyUri={artist.uri}
+              userId={this.state.userId}
+              isModerator={this.props.cookies.get("isModerator") === '1'}
+              spotifyType='artist'
+            />
             <h1>{artist.name}</h1>
             <img className='mb-4' src={artist.image} style={{ height: '300px', width: '300px' }} alt={artist.name} />
             <ArtistWidget id={artist.id} />

@@ -1,6 +1,7 @@
 import React from 'react';
 import AlbumWidget from './AlbumWidget.js';
 import ForumFooter from '../forum/ForumFooter';
+import ModerationToggle from '../moderation/ModerationToggle.js';
 
 class AlbumView extends React.Component {
   state = {
@@ -26,6 +27,13 @@ class AlbumView extends React.Component {
       (
         <>
           <div>
+            <ModerationToggle
+              spotifyUri={album.uri}
+              userId={this.state.userId}
+              isModerator={this.props.cookies.get("isModerator") === '1'}
+              spotifyType='album'
+            />
+
             <h1>{album.name}</h1>
 
             <p>By</p>

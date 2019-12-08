@@ -1,7 +1,7 @@
 import React from 'react';
 import SongWidget from './SongWidget.js';
 import ForumFooter from '../forum/ForumFooter';
-import postService from '../../services/post';
+import ModerationToggle from '../moderation/ModerationToggle.js';
 
 class SongView extends React.Component {
   state = {
@@ -16,7 +16,7 @@ class SongView extends React.Component {
     fetch(`/api/songs/${id}`)
       .then(response => response.json())
       .then(song => {
-        this.setState(() => ({ song, userId }))
+        this.setState({ song, userId });
       });
   }
 
@@ -27,6 +27,13 @@ class SongView extends React.Component {
       (
         <>
           <div>
+            <ModerationToggle
+              spotifyUri={song.uri}
+              userId={this.state.userId}
+              isModerator={this.props.cookies.get("isModerator") === '1'}
+              spotifyType='song'
+            />
+
             <h1>{song.name}</h1>
 
             <p>By</p>
