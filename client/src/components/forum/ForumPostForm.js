@@ -7,7 +7,6 @@ export default function ForumPostForm(props) {
     const [title, setTitle] = useState('');
     const [subject, setSubject] = useState('');
     const [content, setContent] = useState('');
-    const [postImage, setPostImage] = useState(autoImg || '');
     const [redirect, setRedirect] = useState(null);
 
     function post() {
@@ -16,7 +15,7 @@ export default function ForumPostForm(props) {
             title,
             subject,
             content,
-            postImg: postImage,
+            postImg: autoImg,
             spotify_uri: spotifyUri,
         }
         postService.createPost(postData).then(response => {

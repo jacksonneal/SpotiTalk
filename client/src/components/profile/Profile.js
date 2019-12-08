@@ -29,7 +29,7 @@ class Profile extends React.Component {
         <div>
           <h1>{profile.username}</h1>
           <p>Posts by this user</p>
-          <ForumPostList userId={profile.user_id} isModerator={profile.is_moderator} posts={posts} deletePost={() => {}}></ForumPostList>
+          <ForumPostList posts={posts} />
         </div>
       )
   }
