@@ -3,7 +3,6 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const detailsApi = require('./api/details.js');
 const searchApi = require('./api/search.js');
-const forumApi = require('./api/forum.js');
 const mysql = require('mysql');
 const bcrypt = require('bcryptjs');
 const connectionPool = mysql.createPool({
@@ -103,13 +102,6 @@ app.get('/api/search/:query', (req, res) => {
     res.json(results);
   });
 })
-
-// returns search results for a forum
-app.get('/api/forum/:query', (req, res) => {
-  forumApi.forumSearch(req.params.query).then(results => {
-    res.json(results);
-  })
-});
 
 //Get Posts joined on user_id for username.
 app.get('/api/posts', (req, res) => {
