@@ -44,7 +44,7 @@ export default function ForumPost(props) {
                     </span>
                     <span className="pull-left mr-3">
                         <i className="fa fa-user mr-2"></i>
-                        {post.username}
+                        <a className="spotitalk--link" href={`/profile/${post.user_id}`}>{post.username}</a>
                     </span>
                     <span className="mb-2 text-muted pull-left">
                         {post.subject}

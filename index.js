@@ -130,7 +130,7 @@ app.get('/api/posts', (req, res) => {
 //Get a post for a given ID
 app.get('/api/posts/:postID', (req, res) => {
   connectionPool.query(
-    'select u.username, content,spotify_uri,ts,post_id,img_src,title,subject from post left join user u on post.user_id = u.user_id where post_id = ?;',
+    'select u.username, u.user_id, content,spotify_uri,ts,post_id,img_src,title,subject from post left join user u on post.user_id = u.user_id where post_id = ?;',
     [req.params.postID], (err, result, fields) => {
       if (err) {
         console.log(err);
@@ -143,7 +143,7 @@ app.get('/api/posts/:postID', (req, res) => {
 //Get replies to a post
 app.get('/api/posts/:postID/comments', (req, res) => {
   connectionPool.query(
-    'select u.username, reply_id, content from reply left join user u on reply.user_id = u.user_id where parent_id = ?;',
+    'select u.username, reply_id, content, reply.user_id from reply left join user u on reply.user_id = u.user_id where parent_id = ?;',
     [req.params.postID], (err, result) => {
       if (err) {
         console.log(err);
