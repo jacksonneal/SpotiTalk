@@ -22,9 +22,9 @@ class App extends React.Component {
         <div className='App'>
           <Router basename="">
             <div>
-              <Route exact path={["/", "/search", "/search/:criteria"]}
+              <Route exact path={["/search", "/search/:criteria"]}
                 render={(props) => <SearchContainer {...this.props} {...props} />} />
-              <Route exact path="/forum" render={(props) => <Forum {...this.props} {...props} results={[]} critera=''/>} />
+              <Route exact path={["/", "/forum"]} render={(props) => <Forum {...this.props} {...props} results={[]} critera=''/>} />
               <Route exact path="/posts/:id" render={routeProps => <PostView {...routeProps} cookies={this.props.cookies} />} />
               <Route exact path="/songs/:id" render={(props) => <SongView {...props} {...this.props} />} />
               <Route exact path="/albums/:id" render={(props) => <AlbumView {...props} {...this.props} />} />
