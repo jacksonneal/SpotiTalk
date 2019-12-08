@@ -7,7 +7,7 @@ class SearchContainer extends React.Component {
     try {
       return this.props.match.params.criteria;
     } catch {
-      return null;
+      return undefined;
     }
   }
 

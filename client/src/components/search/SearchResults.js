@@ -10,7 +10,7 @@ function SearchResults(props) {
   const [results, setResults] = useState([]);
   useEffect(() => {
     async function getResults() {
-      if (criteria === null) {
+      if (criteria === undefined) {
         return;
       }
       const url = `/api/search/${criteria}`;
