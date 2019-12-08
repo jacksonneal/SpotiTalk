@@ -3,11 +3,10 @@ import SongResult from './SongResult.js';
 import ArtistResult from './ArtistResult.js';
 import AlbumResult from './AlbumResult.js';
 import PostResult from './PostResult.js';
-import Forum from '../forum/Forum.js';
 import postService from '../../services/post';
 
 function SearchResults(props) {
-  const { criteria, cookies } = props;
+  const { criteria } = props;
   const [results, setResults] = useState([]);
   useEffect(() => {
     async function getResults() {
@@ -18,7 +17,6 @@ function SearchResults(props) {
       const res = await fetch(url)
         .then(response => response.json());
       res.posts = await postService.getPosts(criteria);
-      console.log(res.posts);
       setResults(res);
     }
     getResults();

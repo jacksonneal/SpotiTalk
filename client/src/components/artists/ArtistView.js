@@ -1,25 +1,12 @@
 import React from 'react';
 import ArtistWidget from './ArtistWidget.js';
-import postService from '../../services/post';
 import ForumFooter from '../forum/ForumFooter';
+import ModerationToggle from '../moderation/ModerationToggle.js';
 
 class ArtistView extends React.Component {
   state = {
     artist: null,
     userId: null,
-  }
-
-  constructor(props) {
-    super(props);
-    this.createPost = this.createPost.bind(this);
-  }
-
-  createPost = async function (post) {
-    const songPost = {
-      ...post,
-      spotify_uri: this.state.artist.uri
-    }
-    await postService.createPost(songPost);
   }
 
   componentDidMount() {
@@ -40,18 +27,23 @@ class ArtistView extends React.Component {
       (
         <>
           <div>
+            <ModerationToggle
+              spotifyUri={artist.uri}
+              userId={this.state.userId}
+              isModerator={this.props.cookies.get("isModerator") === '1'}
+              spotifyType='artist'
+            />
             <h1>{artist.name}</h1>
             <img className='mb-4' src={artist.image} style={{ height: '300px', width: '300px' }} alt={artist.name} />
             <ArtistWidget id={artist.id} />
             <p className='mt-3'>
-              <a className='spotitalk--link' href={`/search/${artist.name}`}>Search for related songs, artists, and albums</a>
-            </p>
-            <p className='mt-3'>
               <a className='spotitalk--link' href={`/search/${artist.uri}`}>Search for forum posts about this artist</a>
             </p>
-            <a href='/' className='text-secondary'>Return to home</a>
+            <p className='mt-3'>
+              <a className='spotitalk--link' href={`/search/${artist.name}`}>Search for related songs, artists, and albums</a>
+            </p>
           </div>
-          <ForumFooter {...{ autoImg: this.state.artist.image, createPost: this.createPost, userId: this.state.userId }}></ForumFooter>
+          <ForumFooter {...{ autoImg: this.state.artist.image, spotifyUri: this.state.artist.uri, userId: this.state.userId }}></ForumFooter>
         </>
       )
   }

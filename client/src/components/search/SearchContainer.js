@@ -15,7 +15,7 @@ class SearchContainer extends React.Component {
     return (
       <div>
         <SearchBar />
-        <SearchResults cookies={this.props.cookies} criteria={this.getCriteria()} />
+        <SearchResults criteria={this.getCriteria()} />
       </div>
     );
   }

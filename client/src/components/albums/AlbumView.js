@@ -1,25 +1,12 @@
 import React from 'react';
 import AlbumWidget from './AlbumWidget.js';
-import postService from '../../services/post';
 import ForumFooter from '../forum/ForumFooter';
+import ModerationToggle from '../moderation/ModerationToggle.js';
 
 class AlbumView extends React.Component {
   state = {
     album: null,
     userId: null
-  }
-
-  constructor(props) {
-    super(props);
-    this.createPost = this.createPost.bind(this);
-  }
-
-  createPost = async function (post) {
-    const songPost = {
-      ...post,
-      spotify_uri: this.state.album.uri
-    }
-    await postService.createPost(songPost);
   }
 
   componentDidMount() {
@@ -40,6 +27,13 @@ class AlbumView extends React.Component {
       (
         <>
           <div>
+            <ModerationToggle
+              spotifyUri={album.uri}
+              userId={this.state.userId}
+              isModerator={this.props.cookies.get("isModerator") === '1'}
+              spotifyType='album'
+            />
+
             <h1>{album.name}</h1>
 
             <p>By</p>
@@ -50,14 +44,13 @@ class AlbumView extends React.Component {
             <img className='mb-4' src={album.image} style={{ height: '300px', width: '300px' }} alt={album.name} />
             <AlbumWidget id={album.id} />
             <p className='mt-3'>
-              <a className='spotitalk--link' href={`/search/${album.name}`}>Search for related songs, artists, and albums</a>
-            </p>
-            <p className='mt-3'>
               <a className='spotitalk--link' href={`/search/${album.uri}`}>Search for forum posts about this album</a>
             </p>
-            <a href='/' className='text-secondary'>Return to home</a>
+            <p className='mt-3'>
+              <a className='spotitalk--link' href={`/search/${album.name}`}>Search for related songs, artists, and albums</a>
+            </p>
           </div>
-          <ForumFooter {...{ autoImg: this.state.album.image, createPost: this.createPost, userId: this.state.userId }}></ForumFooter>
+          <ForumFooter {...{ autoImg: this.state.album.image, spotifyUri: this.state.album.uri, userId: this.state.userId }}></ForumFooter>
         </>
       )
   }

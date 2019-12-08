@@ -1,17 +1,12 @@
 import React from 'react';
 import SongWidget from './SongWidget.js';
 import ForumFooter from '../forum/ForumFooter';
-import postService from '../../services/post';
+import ModerationToggle from '../moderation/ModerationToggle.js';
 
 class SongView extends React.Component {
   state = {
     song: null,
     userId: null
-  }
-
-  constructor(props) {
-    super(props);
-    this.createPost = this.createPost.bind(this);
   }
 
   componentDidMount() {
@@ -21,16 +16,8 @@ class SongView extends React.Component {
     fetch(`/api/songs/${id}`)
       .then(response => response.json())
       .then(song => {
-        this.setState(() => ({ song, userId }))
+        this.setState({ song, userId });
       });
-  }
-
-  createPost = async function (post) {
-    const songPost = {
-      ...post,
-      spotify_uri: this.state.song.uri
-    }
-    await postService.createPost(songPost);
   }
 
   render() {
@@ -40,6 +27,13 @@ class SongView extends React.Component {
       (
         <>
           <div>
+            <ModerationToggle
+              spotifyUri={song.uri}
+              userId={this.state.userId}
+              isModerator={this.props.cookies.get("isModerator") === '1'}
+              spotifyType='song'
+            />
+
             <h1>{song.name}</h1>
 
             <p>By</p>
@@ -51,14 +45,13 @@ class SongView extends React.Component {
             <p>Album: <a className='spotitalk--link' href={`/albums/${song.album.id}`}>{song.album.name}</a></p>
             <SongWidget id={song.id} />
             <p className='mt-3'>
-              <a className='spotitalk--link' href={`/search/${song.name}`}>Search for related songs, artists, and albums</a>
-            </p>
-            <p className='mt-3'>
               <a className='spotitalk--link' href={`/search/${song.uri}`}>Search for forum posts about this song</a>
             </p>
-            <a href='/' className='text-secondary'>Return to home</a>
+            <p className='mt-3'>
+              <a className='spotitalk--link' href={`/search/${song.name}`}>Search for related songs, artists, and albums</a>
+            </p>
           </div>
-          <ForumFooter {...{ autoImg: this.state.song.album.image, createPost: this.createPost, userId: this.state.userId }}></ForumFooter>
+          <ForumFooter {...{ autoImg: this.state.song.album.image, spotifyUri: this.state.song.uri, userId: this.state.userId }}></ForumFooter>
         </>
       )
   }
