@@ -41,7 +41,3 @@ create table user
     user_id  int auto_increment
         primary key
 );
-
-select * from user;
-
-show tables;
