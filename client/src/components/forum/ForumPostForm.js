@@ -20,7 +20,7 @@ export default function ForumPostForm(props) {
             spotify_uri: spotifyUri,
         }
         postService.createPost(postData).then(response => {
-          setRedirect(response[response.length - 1].post_id);
+          setRedirect(response.insertId);
         });
     }
 

@@ -30,6 +30,20 @@ app.use(function (req, res, next) {
   next();
 });
 
+performQuery = (res, query, variables=[]) => {
+  connectionPool.query(
+    query,
+    variables,
+    (error, result) => {
+      if (error) {
+        console.log(error);
+        res.status(500).send(error);
+      }
+      res.send(result);
+    }
+  );
+}
+
 //used to login a user
 app.get('/api/user', (req, res) => {
   const { userName, password } = req.query;
@@ -107,134 +121,43 @@ app.get('/api/search/:query', (req, res) => {
 app.get('/api/posts', (req, res) => {
   const { query } = req.query;
   const queryLike = `%${query}%`;
-  connectionPool.query(
+  performQuery(
+    res,
     'select u.username, u.user_id,content,spotify_uri,post_id,img_src, title,subject,ts from post left join user u on post.user_id = u.user_id where spotify_uri = ? or subject like ? order by ts desc;',
-    [query, queryLike],
-    (err, result, fields) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send({ error: 'Error querying Posts databse' });
-      }
-      res.send(result);
-    });
+    [query, queryLike]
+  );
 });
 
 //Get a post for a given ID
 app.get('/api/posts/:postID', (req, res) => {
-  connectionPool.query(
-    'select u.username, u.user_id, content,spotify_uri,ts,post_id,img_src,title,subject from post left join user u on post.user_id = u.user_id where post_id = ?;',
-    [req.params.postID], (err, result, fields) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send(`Error retrieving post ${req.params.postID}`)
-      }
-      res.send(result);
-    });
+  performQuery(
+    res,
+    'select u.username, u.user_id, content, spotify_uri, ts, post_id, img_src, title, subject from post left join user u on post.user_id = u.user_id where post_id = ?;',
+    [req.params.postID]
+  );
 });
 
 //Get replies to a post
 app.get('/api/posts/:postID/comments', (req, res) => {
-  connectionPool.query(
+  performQuery(
+    res,
     'select u.username, reply_id, content, reply.user_id from reply left join user u on reply.user_id = u.user_id where parent_id = ?;',
-    [req.params.postID], (err, result) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send(
-          `Error retrieving replies to post ${req.params.postID}`)
-      }
-      res.send(result);
-    });
-});
-
-//Get a reply by ID
-app.get('/api/replies/:replyID', (request, response) => {
-  connectionPool.query(
-    'select u.username, content,reply_id from reply left join user u on reply.user_id = u.user_id where reply_id = ?;',
-    [request.params.replyID], (error, result) => {
-      if (error) {
-        console.log(error);
-        response.status(500).send(
-          `Error retriving reply ${request.params.replyID}`);
-      }
-      response.send(result);
-    });
-});
-
-//Find all replies
-app.get('/api/replies', (req, res) => {
-  connectionPool.query(`select u.username, content, parent_id from reply left join user u on reply.user_id = u.user_id;`,
-    (error, result) => {
-      if (error) {
-        console.log(error);
-        res.status(500).send('Error retrieving replies')
-      }
-      res.send(result);
-    });
-});
-
-//Get all users
-app.get('/api/users', (req, res) => {
-  connectionPool.query('select username, user_id from user;',
-    (error, result) => {
-      if (error) {
-        console.log(error);
-        res.status(500).send('Error retrieving users');
-      }
-      res.send(result);
-    });
+    [req.params.postID]
+  );
 });
 
 //Get user by id
 app.get('/api/users/:userID', (req, res) => {
-  connectionPool.query('select username,user_id from user where user_id = ?',
-    [req.params.userID],
-    (error, result) => {
-      if (error) {
-        console.log(error);
-        res.status(500).send(`Error retrieving user ${req.params.userID}`);
-      }
-      res.send(result);
-    }
-  );
+  performQuery(res, 'select username,user_id from user where user_id = ?', [req.params.userID]);
 });
 
 //Get posts for a user
 app.get('/api/users/:userID/posts', (req, res) => {
-  connectionPool.query(
+  performQuery(
+    res,
     'select u.username, u.user_id,content,spotify_uri,post_id,img_src, title,subject,ts from post left join user u on post.user_id = u.user_id where post.user_id = ?;',
-    [req.params.userID],
-    (error, result) => {
-      if (error) {
-        console.log(error);
-        res.status(500).send(`Error retrieving posts for user ${req.params.userID}`);
-      }
-      res.send(result);
-    }
+    [req.params.userID]
   );
-});
-
-//Add a user
-app.post('/api/users', (req, res) => {
-  const { username } = req.body;
-  connectionPool.query(
-    'insert into user (username) value (?);',
-    [username],
-    (error, result) => {
-      if (error) {
-        console.log(error);
-        res.status(500).send('Error adding user');
-      } else {
-        connectionPool.query(
-          'select username, user_id from user where username = ?', [username],
-          (error, result) => {
-            if (error) {
-              console.log(error);
-              res.status(500).send(error);
-            }
-            res.send(result);
-          });
-      }
-    });
 });
 
 //Add a reply to a post
@@ -244,132 +167,55 @@ app.post('/api/posts/:postID/comments', (req, res) => {
   const user_id = userId;
   connectionPool.query(
     'insert into reply (parent_id, content, user_id) values (?,?,?)',
-    [postID, content, user_id], (error, result) => {
+    [postID, content, user_id],
+    (error, result) => {
       if (error) {
         console.log(error);
         res.status(500).send(`Error replying to post ${parent_id}`);
       }
-      connectionPool.query(
-        'select reply_id,parent_id,content, u.username from reply left join user u on reply.user_id = u.user_id',
-        (error, result) => {
-          if (error) {
-            console.log(error);
-            res.status(500).send('Error retriving new reply');
-          }
-          res.send(result);
-        });
-    });
+      performQuery(res, 'select reply_id, parent_id, content, u.username from reply left join user u on reply.user_id = u.user_id')
+    }
+  );
 });
 
 //Add a post
 app.post('/api/posts', (req, res) => {
   let { user_id, spotify_uri, content, title, subject, postImg } = req.body;
-  const img_src = postImg;
-  connectionPool.query(
+  performQuery(
+    res,
     'insert into post (spotify_uri, user_id, content, title, subject, img_src) values(?,?,?,?,?,?)',
-    [spotify_uri, user_id, content, title, subject, img_src], (error, result) => {
-      if (error) {
-        console.log(error);
-        res.status(500).send('Error Creating a new post');
-      } else {
-        connectionPool.query(
-          'select u.username, content, spotify_uri, post_id, title, subject, img_src, ts from post left join user u on post.user_id = u.user_id',
-          [spotify_uri, user_id, content], (error, result) => {
-            if (error) {
-              console.log(error);
-              res.status(500).send('Error retrieving new post');
-            }
-            res.send(result);
-          });
-      }
-    });
-});
-
-//Delete a user
-app.delete('/api/users/:userID', (req, res) => {
-  const { userID } = req.params;
-  connectionPool.query('update user set username = ? where user_id = ?',
-    ['DELETED', userID], (err, result) => {
-      if (err) {
-        console.log(err);
-        res.status(500).send('Unable to delete user');
-      }
-      res.send('Successufully deleted user');
-    });
+    [spotify_uri, user_id, content, title, subject, postImg]
+  );
 });
 
 //Delete a post
 app.delete('/api/posts/:postID', (req, res) => {
   const { postID } = req.params;
-  connectionPool.query('delete from post where post_id = ?', [postID],
-    (error, result) => {
-      if (error) {
-        console.log(error);
-        res.status(500).send('Error deleting post');
-      }
-      res.send('Successfully deleted post');
-    });
-});
-
-//Delete a reply
-app.delete('/api/replies/:replyID', (req, res) => {
-  const { replyID } = req.params;
-  connectionPool.query('delete from reply where reply_id =?', [replyID],
-    (error, result) => {
-      if (error) {
-        console.log(error);
-        res.status(500).send('Error deleting reply');
-      }
-      res.send('Successfully deleted reply');
-    });
+  performQuery(res, 'delete from post where post_id = ?', [postID]);
 });
 
 // Get moderation privileges for a user
 app.get('/api/user/:userID/moderation', (req, res) => {
   const { userID } = req.params;
-  connectionPool.query(
-    'select * from moderation where user_id = ?', [userID],
-    (error, result) => {
-      if (error) {
-        console.log(error);
-        res.status(500).send(error);
-      }
-      res.send(result);
-    });
+  performQuery(res, 'select * from moderation where user_id = ?', [userID]);
 });
 
 // Create moderation privileges for a user
 app.post('/api/moderation', (req, res) => {
   const { user_id, spotify_uri } = req.body;
-  connectionPool.query(
-    'insert into moderation (user_id, spotify_uri) values(?,?)', [user_id, spotify_uri],
-    (error, result) => {
-      if (error) {
-        console.log(error);
-        res.status(500).send(error);
-      }
-      res.send(result);
-    });
+  performQuery(res, 'insert into moderation (user_id, spotify_uri) values(?,?)', [user_id, spotify_uri]);
 });
 
 // Remove moderation privileges for a user
 app.delete('/api/moderation/:moderationID', (req, res) => {
   const { moderationID } = req.params;
-  connectionPool.query('delete from moderation where id = ?', [moderationID],
-    (error, result) => {
-      if (error) {
-        console.log(error);
-        res.status(500).send(error);
-      }
-      res.send(result);
-    });
+  performQuery(res, 'delete from moderation where id = ?', [moderationID]);
 });
 
 // handles any requests that don't match the ones above
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'));
 });
-
 
 const port = process.env.PORT || 5000;
 app.listen(port);
