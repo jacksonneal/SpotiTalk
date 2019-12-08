@@ -77,7 +77,7 @@ class PostView extends React.Component {
           </div>
         )}
         { (isModerator && !moderatesThisPost ) && (
-          <i>To moderate this post, please <a className='spotitalk--link' href={this.linkToTopic()}>become a moderator for this topic</a></i>
+          <p><i>To moderate this post, please <a className='spotitalk--link' href={this.linkToTopic()}>become a moderator for this topic</a></i></p>
         )}
         <a className='spotitalk--link' href={this.linkToTopic()}>Link to the topic being discussed</a>
         <div className="container-fluid mt-1">
