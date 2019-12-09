@@ -8,6 +8,11 @@ async function getPosts(query) {
     return await res.json();
 }
 
+async function getCommentedPosts(userId) {
+    const res = await fetch(`${api}/usercomments/${userId}/posts`);
+    return await res.json();
+}
+
 async function createPost(post) {
     const res = await fetch(`${api}/posts`, {
         method: 'post',
@@ -28,4 +33,4 @@ async function deletePost(id) {
     });
 }
 
-export default { getPosts, createPost, deletePost }
+export default { getPosts, createPost, deletePost, getCommentedPosts }

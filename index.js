@@ -30,7 +30,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-performQuery = (res, query, variables=[]) => {
+performQuery = (res, query, variables = []) => {
   connectionPool.query(
     query,
     variables,
@@ -158,6 +158,14 @@ app.get('/api/users/:userID/posts', (req, res) => {
     'select u.username, u.user_id,content,spotify_uri,post_id,img_src, title,subject,ts from post left join user u on post.user_id = u.user_id where post.user_id = ?;',
     [req.params.userID]
   );
+});
+
+//Get posts a user has commented on
+app.get('/api/usercomments/:userId/posts', (req, res) => {
+  performQuery(
+    res,
+    'select * from post inner join (select parent_id from reply where user_id = ?) replies on post_id = parent_id group by post_id order by ts desc',
+    [req.params.userId]);
 });
 
 //Add a reply to a post

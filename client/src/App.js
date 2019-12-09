@@ -23,7 +23,7 @@ class App extends React.Component {
         <div className='App'>
           <Router basename="">
             <div>
-              <Route exact path={["/", "/forum"]} component={Forum} />
+              <Route exact path={["/", "/forum"]} render={props => <Forum {...props} cookies={cookies} />} />
               <Route exact path={["/search", "/search/:criteria"]} component={SearchContainer} />
               <Route exact path="/posts/:id" render={props => <PostView {...props} cookies={cookies} />} />
               <Route exact path="/songs/:id" render={props => <SongView {...props} cookies={cookies} />} />
