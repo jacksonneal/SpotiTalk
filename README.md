@@ -23,10 +23,16 @@ Running node server. The server will serve API calls, as well as built files in 
 ```bash
 npm start
 ```
+To Run with nodemon hot reloading, run 
+```bash
+npm run watch
+```
 
 ## Installation / Dev Setup (client)
 
-See client/README.md
-
+To Run front-end client from root directory, run 
+```bash
+npm run dev
+```
 When developing the client, make sure the Express server is running if you plan to make API calls.
 
