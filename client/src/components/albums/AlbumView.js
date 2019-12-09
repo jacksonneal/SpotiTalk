@@ -13,10 +13,11 @@ class AlbumView extends React.Component {
     const { id } = this.props.match.params
     const { cookies } = this.props;
     const userId = cookies.get("userId");
+    const isModerator = cookies.get("isModerator");
     fetch(`/api/albums/${id}`)
       .then(response => response.json())
       .then(album => {
-        this.setState(() => ({ album, userId }))
+        this.setState(() => ({ album, userId, isModerator }))
       });
   }
 
@@ -50,7 +51,7 @@ class AlbumView extends React.Component {
               <a className='spotitalk--link' href={`/search/${album.name}`}>Search for related songs, artists, and albums</a>
             </p>
           </div>
-          <ForumFooter {...{ autoImg: this.state.album.image, spotifyUri: this.state.album.uri, userId: this.state.userId }}></ForumFooter>
+          <ForumFooter {...{ autoImg: this.state.album.image, spotifyUri: this.state.album.uri, userId: this.state.userId, isModerator: this.state.isModerator }}></ForumFooter>
         </>
       )
   }

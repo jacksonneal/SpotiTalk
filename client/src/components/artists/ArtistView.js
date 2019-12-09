@@ -13,10 +13,11 @@ class ArtistView extends React.Component {
     const { id } = this.props.match.params
     const { cookies } = this.props;
     const userId = cookies.get("userId");
+    const isModerator = cookies.get("isModerator");
     fetch(`/api/artists/${id}`)
       .then(response => response.json())
       .then(artist => {
-        this.setState(() => ({ artist, userId }))
+        this.setState(() => ({ artist, userId, isModerator }))
       });
   }
 
@@ -43,7 +44,7 @@ class ArtistView extends React.Component {
               <a className='spotitalk--link' href={`/search/${artist.name}`}>Search for related songs, artists, and albums</a>
             </p>
           </div>
-          <ForumFooter {...{ autoImg: this.state.artist.image, spotifyUri: this.state.artist.uri, userId: this.state.userId }}></ForumFooter>
+          <ForumFooter {...{ autoImg: this.state.artist.image, spotifyUri: this.state.artist.uri, userId: this.state.userId, isModerator: this.state.isModerator }}></ForumFooter>
         </>
       )
   }
